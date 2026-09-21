@@ -1,0 +1,52 @@
+# One-off helper: downloads the photography used by the Mainsail site from
+# public CDNs, resizes it to web-friendly source files and commits the result
+# to this branch. Safe to delete once mainsail/assets/img/src exists.
+name: Fetch Mainsail site assets
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+      - name: Download originals
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/src/vercel /tmp/src/wix
+          cd /tmp/src
+          curl -fsSL "https://d2ol7oe51mr4n9.cloudfront.net/user_3JKxNDZEjKpo0QPElZKq05EQnbr/69ba93e3-3944-42e8-b221-b5eb49c0e513.zip" -o vercel.zip
+          unzip -q vercel.zip -d vercel
+          curl -fsSL "https://d8j0ntlcm91z4.cloudfront.net/user_3JKxNDZEjKpo0QPElZKq05EQnbr/hf_20260921_211217_d05c97ce-cdaa-41af-a72d-5a3fd7cfab7a.png" -o hero-sail.png
+          i=0
+          for u in 02929d_1644d4cfe57648eda2b8b1976decb844~mv2.jpg 02929d_50bab59116354809bd6f97aab1528f0f~mv2.jpg 02929d_604e4410871d4f95838cb4a87b527a57~mv2.jpg 02929d_740d29e662ab424e9abc3f840cc90170~mv2.png 02929d_ee45e9335a4944c9bcfec7c7fa394a2c~mv2.jpg 11062b_8278a66c318043ad812039533fa6ee0a~mv2.jpg 11062b_8ed4174d11c148f9b5ae0a9bd743a6f9~mv2.jpg 11062b_9b52a0adb0ac4756a04a9e7aeaa7ce3d~mv2.jpeg f7133f9895b24525a2ad16c1e778c9fa.jpg; do
+            i=$((i+1)); ext="${u##*.}"
+            curl -fsSL -A "Mozilla/5.0" "https://static.wixstatic.com/media/$u" -o "wix/wix-$i.$ext" || echo "skip $u"
+          done
+          ls -la vercel wix hero-sail.png
+      - name: Resize to web source files
+        run: |
+          set -euo pipefail
+          out=mainsail/assets/img/src
+          mkdir -p "$out"
+          for f in /tmp/src/vercel/*.jpg /tmp/src/wix/*.jpg /tmp/src/wix/*.jpeg; do
+            [ -f "$f" ] || continue
+            b=$(basename "$f"); b="${b%.*}"
+            convert "$f[0]" -auto-orient -resize '2400x2400>' -strip -interlace Plane -quality 86 "$out/$b.jpg"
+          done
+          convert /tmp/src/hero-sail.png[0] -resize '2400x2400>' -strip -quality 90 "$out/hero-sail.jpg"
+          if [ -f /tmp/src/wix/wix-4.png ]; then convert /tmp/src/wix/wix-4.png[0] -resize '1400x1400>' -strip "$out/wix-4.png"; fi
+          ls -la "$out"; du -sh "$out"
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add mainsail/assets/img/src
+          git commit -m "Add source imagery for the Mainsail site
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_016mMvPa8U1a3Yh9vXfeChS2" || echo "nothing to commit"
+          git push
