@@ -30,16 +30,24 @@ jobs:
       - name: Resize to web source files
         run: |
           set -euo pipefail
-          out=mainsail/assets/img/src
-          mkdir -p "$out"
-          for f in /tmp/src/vercel/*.jpg /tmp/src/wix/*.jpg /tmp/src/wix/*.jpeg; do
-            [ -f "$f" ] || continue
-            b=$(basename "$f"); b="${b%.*}"
-            convert "$f[0]" -auto-orient -resize '2400x2400>' -strip -interlace Plane -quality 86 "$out/$b.jpg"
-          done
-          convert /tmp/src/hero-sail.png[0] -resize '2400x2400>' -strip -quality 90 "$out/hero-sail.jpg"
-          if [ -f /tmp/src/wix/wix-4.png ]; then convert /tmp/src/wix/wix-4.png[0] -resize '1400x1400>' -strip "$out/wix-4.png"; fi
-          ls -la "$out"; du -sh "$out"
+          python3 -m pip install --quiet pillow
+          python3 - <<'PY'
+          import glob, os
+          from PIL import Image, ImageOps
+          out = 'mainsail/assets/img/src'; os.makedirs(out, exist_ok=True)
+          files = sorted(glob.glob('/tmp/src/vercel/*.jpg') + glob.glob('/tmp/src/wix/*.jpg') + glob.glob('/tmp/src/wix/*.jpeg') + ['/tmp/src/hero-sail.png'])
+          for f in files:
+              im = ImageOps.exif_transpose(Image.open(f)).convert('RGB')
+              im.thumbnail((2400, 2400), Image.LANCZOS)
+              name = os.path.splitext(os.path.basename(f))[0] + '.jpg'
+              im.save(os.path.join(out, name), 'JPEG', quality=86, optimize=True, progressive=True)
+              print(name, im.size, os.path.getsize(os.path.join(out, name)))
+          logo = '/tmp/src/wix/wix-4.png'
+          if os.path.exists(logo):
+              im = Image.open(logo); im.thumbnail((1400, 1400), Image.LANCZOS); im.save(os.path.join(out, 'wix-4.png'), 'PNG', optimize=True)
+              print('wix-4.png', im.size, im.mode)
+          PY
+          du -sh mainsail/assets/img/src
       - name: Commit
         run: |
           git config user.name "github-actions[bot]"
