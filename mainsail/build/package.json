@@ -1,0 +1,12 @@
+{
+  "name": "mainsail-site-build",
+  "private": true,
+  "description": "Build tooling for the Mainsail Consulting Group website",
+  "scripts": {
+    "build": "node build.js",
+    "images": "node images.js"
+  },
+  "devDependencies": {
+    "sharp": "^0.34.0"
+  }
+}
