@@ -7,8 +7,7 @@ mainsail/
   index.html                 home
   services/*.html            one page per service (5)
   assets/css/site.css        styles — design tokens at the top
-  assets/js/site.js          behaviour (nav, smooth scroll, reveals, count-up, card stack, form, transitions)
-  assets/js/lenis.min.js     Lenis smooth-scroll library (MIT), vendored
+  assets/js/site.js          behaviour (nav, reveals, count-up, hover images, form, transitions)
   assets/fonts/              Geist, Geist Mono, Instrument Serif (Latin subsets)
   assets/img/                responsive photography (avif / webp / jpg) + favicon, OG card
   assets/img/src/            2400px source photos the variants are generated from
