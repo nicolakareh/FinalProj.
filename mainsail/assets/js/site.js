@@ -88,7 +88,7 @@
   const saveData = navigator.connection && navigator.connection.saveData;
   if (hv && hv.dataset.src && !reduce && !saveData) {
     const start = () => {
-      hv.src = hv.dataset.src; hv.load();
+      hv.src = window.matchMedia('(max-width: 900px)').matches ? hv.dataset.src.replace('hero.mp4', 'hero-720.mp4') : hv.dataset.src; hv.load();
       hv.addEventListener('playing', () => hv.classList.add('is-playing'), { once: true });
       hv.play().catch(() => {});
     };

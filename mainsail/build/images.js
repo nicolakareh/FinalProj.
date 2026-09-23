@@ -26,7 +26,7 @@ const MAP = {
   pharma:         { file: 'hero-4.jpg' },
   education:      { file: 'hero-2.jpg' },
 };
-const WIDTHS = [900, 1800];
+const WIDTHS = [900, 1800, 2600];
 
 async function variant(input, key, w, ratio, position) {
   const h = Math.round(w / ratio);
