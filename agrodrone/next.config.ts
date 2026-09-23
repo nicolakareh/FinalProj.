@@ -11,7 +11,7 @@ const nextConfig: NextConfig = {
   ...(artifactExport
     ? {
         output: "export" as const,
-        assetPrefix: ".",
+        assetPrefix: "./site",
         images: { unoptimized: true },
       }
     : {}),
