@@ -4,6 +4,9 @@
 name: Fetch Mainsail media
 on:
   workflow_dispatch:
+  push:
+    branches: [claude/loving-brown-xu9c32]
+    paths: ['.github/mainsail-assets.json', '.github/workflows/fetch-mainsail-media.yml']
 permissions:
   contents: write
 jobs:
