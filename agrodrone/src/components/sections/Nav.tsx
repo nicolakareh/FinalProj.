@@ -40,7 +40,7 @@ export function Nav() {
         solid ? "border-line/70 bg-paper/85 text-ink backdrop-blur-md" : "border-transparent bg-transparent text-paper",
       )}
     >
-      <Container className="flex h-16 items-center justify-between">
+      <Container className={cn("flex items-center justify-between transition-[height] duration-300 ease-out", solid ? "h-14" : "h-16")}>
         <a href="#top" className="rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-field" aria-label={`${site.name} home`}>
           <Wordmark />
         </a>
@@ -49,14 +49,12 @@ export function Nav() {
           <ul className="flex items-center gap-8">
             {site.nav.links.map((link) => (
               <li key={link.href}>
-                <a
-                  href={link.href}
-                  className={cn(
-                    "relative text-[15px] font-medium transition-opacity duration-200 hover:opacity-100",
-                    solid ? "opacity-80" : "opacity-85",
-                  )}
-                >
+                <a href={link.href} className="group relative inline-block py-1 text-[15px] font-medium opacity-85 transition-opacity duration-200 hover:opacity-100">
                   {link.label}
+                  <span
+                    aria-hidden="true"
+                    className="absolute inset-x-0 -bottom-0.5 h-px origin-left scale-x-0 bg-current transition-transform duration-300 ease-out group-hover:scale-x-100"
+                  />
                 </a>
               </li>
             ))}

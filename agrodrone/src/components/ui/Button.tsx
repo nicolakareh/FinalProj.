@@ -35,7 +35,7 @@ const sizes: Record<Size, string> = {
 };
 
 const baseClass =
-  "group inline-flex items-center justify-center gap-2 rounded-full font-medium whitespace-nowrap select-none transition-[background-color,color,border-color,transform] duration-200 ease-out focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-field disabled:pointer-events-none disabled:opacity-50";
+  "group inline-flex items-center justify-center gap-2 rounded-full font-medium whitespace-nowrap select-none transition-[background-color,color,border-color,transform] duration-200 ease-out active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-field disabled:pointer-events-none disabled:opacity-50";
 
 function Arrow() {
   return <ArrowRight className="transition-transform duration-200 ease-out group-hover:translate-x-0.5" />;

@@ -7,6 +7,7 @@ import { checkZip, type CoverageStatus } from "@/lib/coverage";
 import { Container } from "@/components/ui/Container";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Button } from "@/components/ui/Button";
+import { Reveal } from "@/components/ui/Reveal";
 
 /**
  * PLACEHOLDER region map: an abstract service area over a dot grid. Swap the
@@ -57,6 +58,7 @@ export function Coverage() {
         <div className="grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-20">
           <div>
             <SectionHeader eyebrow={coverage.eyebrow} title={coverage.headline} lead={coverage.lead} />
+            <Reveal delay={0.2}>
             <form onSubmit={onSubmit} className="mt-10 max-w-md" noValidate>
               <label htmlFor={inputId} className="type-eyebrow text-ink-3">
                 {coverage.inputLabel}
@@ -93,8 +95,11 @@ export function Coverage() {
                 {message}
               </p>
             </form>
+            </Reveal>
           </div>
-          <RegionMap label={coverage.mapLabel} />
+          <Reveal delay={0.1} amount={0.3}>
+            <RegionMap label={coverage.mapLabel} />
+          </Reveal>
         </div>
       </Container>
     </section>

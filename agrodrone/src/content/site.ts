@@ -93,9 +93,23 @@ export const site = {
       application: "Application",
       field: "Field",
       passes: "Passes",
+      pass: "Current pass",
       swath: "Swath",
       time: "Est. time on field",
       coverage: "Covered",
+      elapsed: "elapsed",
+    },
+    status: {
+      ready: "Ready",
+      flying: "In flight",
+      paused: "Paused",
+      done: "Complete",
+    },
+    controls: {
+      play: "Fly the field",
+      pause: "Pause",
+      resume: "Resume",
+      replay: "Fly again",
     },
   },
 
@@ -103,6 +117,7 @@ export const site = {
     eyebrow: "How it works",
     headline: "Four steps. One afternoon.",
     lead: "From the first survey pass to the as-applied report, every job follows the same plan.",
+    scrollHint: "Scroll",
     steps: [
       {
         title: "Map the field",

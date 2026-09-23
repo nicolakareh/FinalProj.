@@ -95,3 +95,23 @@
 @utility section-pad {
   padding-block: clamp(5rem, 4rem + 6vw, 9rem);
 }
+
+/* Slow drift on the hero placeholder so the fold has life until the video lands. */
+@keyframes hero-drift {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.06);
+  }
+}
+@utility hero-drift {
+  transform-origin: 50% 37%;
+  animation: hero-drift 28s ease-in-out infinite alternate;
+}
+
+/* SVG parts that rotate around their own centre (drone rotors). */
+@utility rotor {
+  transform-box: fill-box;
+  transform-origin: center;
+}

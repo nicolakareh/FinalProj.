@@ -5,6 +5,7 @@ import { site } from "@/content/site";
 import { cn } from "@/lib/cn";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
+import { Reveal } from "@/components/ui/Reveal";
 import { PREFILL_EVENT } from "./Estimator";
 
 type Values = { name: string; farm: string; acres: string; email: string; phone: string };
@@ -73,14 +74,15 @@ export function FinalCta() {
     <section id="quote" className="section-pad scroll-mt-16 bg-ink text-paper">
       <Container>
         <div className="grid gap-12 lg:grid-cols-[1.1fr_1fr] lg:gap-20">
-          <div>
+          <Reveal>
             <h2 className="type-h2 max-w-[14ch]">{cta.headline}</h2>
             <p className="type-lead mt-6 max-w-[40ch] text-paper/70">{cta.lead}</p>
             <a href={`mailto:${site.email}`} className="mt-10 inline-block text-[15px] text-paper/70 underline-offset-4 transition-colors duration-200 hover:text-paper hover:underline">
               {site.email}
             </a>
-          </div>
+          </Reveal>
 
+          <Reveal delay={0.12} amount={0.2}>
           {submitted ? (
             <div role="status" className="flex flex-col justify-center rounded-3xl border border-paper/15 p-8">
               <p className="type-h3 text-2xl sm:text-3xl">{cta.success.title.replace("{name}", submitted.name.trim().split(" ")[0])}</p>
@@ -124,6 +126,7 @@ export function FinalCta() {
               </div>
             </form>
           )}
+          </Reveal>
         </div>
       </Container>
     </section>

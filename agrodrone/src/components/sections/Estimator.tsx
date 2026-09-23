@@ -7,6 +7,7 @@ import { estimateMinutes, formatMinutes, type ApplicationId, type CropId } from 
 import { Container } from "@/components/ui/Container";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Button } from "@/components/ui/Button";
+import { Reveal } from "@/components/ui/Reveal";
 
 export const PREFILL_EVENT = "agrodrone:prefill";
 
@@ -39,7 +40,8 @@ export function Estimator() {
         <SectionHeader eyebrow={estimator.eyebrow} title={estimator.headline} lead={estimator.lead} />
 
         <div className="mt-14 grid gap-4 lg:grid-cols-[1fr_1fr]">
-          <form className="rounded-3xl border border-line bg-paper p-5 sm:p-8" onSubmit={(e) => e.preventDefault()}>
+          <Reveal delay={0.05} amount={0.2}>
+          <form className="h-full rounded-3xl border border-line bg-paper p-5 sm:p-8" onSubmit={(e) => e.preventDefault()}>
             <div className="grid gap-6">
               <div>
                 <label htmlFor={acresId} className="type-eyebrow text-ink-3">
@@ -89,8 +91,10 @@ export function Estimator() {
               </div>
             </div>
           </form>
+          </Reveal>
 
-          <div className="flex flex-col justify-between rounded-3xl bg-ink p-6 text-paper sm:p-8">
+          <Reveal delay={0.15} amount={0.2}>
+          <div className="flex h-full flex-col justify-between rounded-3xl bg-ink p-6 text-paper sm:p-8">
             <div>
               <div className="flex items-center justify-between">
                 <p className="type-eyebrow text-paper/60">{estimator.resultLabel}</p>
@@ -107,6 +111,7 @@ export function Estimator() {
               </Button>
             </div>
           </div>
+          </Reveal>
         </div>
       </Container>
     </section>
