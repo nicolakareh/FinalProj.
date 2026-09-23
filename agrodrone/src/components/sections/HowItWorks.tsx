@@ -191,13 +191,15 @@ export function HowItWorks() {
             {how.steps.map((step, i) => (
               <li key={step.title} className="lg:w-[440px] lg:shrink-0">
                 <Reveal delay={i * 0.06} className="h-full">
-                  <div className="flex h-full flex-col rounded-2xl border border-line bg-paper p-4 transition-[border-color,transform,box-shadow] duration-300 ease-out hover:-translate-y-0.5 hover:border-ink/25 hover:shadow-[0_18px_40px_-28px_rgba(14,15,12,0.35)] sm:p-5">
-                    <StepArt index={i} />
+                  <div className="group flex h-full flex-col">
+                    <div className="overflow-hidden rounded-2xl transition-transform duration-300 ease-out group-hover:-translate-y-0.5">
+                      <StepArt index={i} />
+                    </div>
                     <div className="mt-5 flex items-baseline gap-3">
                       <span className="type-eyebrow text-field">0{i + 1}</span>
                       <h3 className="type-h3">{step.title}</h3>
                     </div>
-                    <p className="mt-2 text-[15px] leading-relaxed text-ink-2">{step.body}</p>
+                    <p className="mt-2 max-w-[34ch] text-[15px] leading-relaxed text-ink-2">{step.body}</p>
                   </div>
                 </Reveal>
               </li>

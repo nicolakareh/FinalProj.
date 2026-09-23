@@ -17,7 +17,7 @@ function RegionMap({ label }: { label: string }) {
   const dots: Array<[number, number]> = [];
   for (let y = 24; y <= 296; y += 16) for (let x = 24; x <= 376; x += 16) dots.push([x, y]);
   return (
-    <div className="relative overflow-hidden rounded-3xl border border-line bg-paper">
+    <div className="relative overflow-hidden rounded-3xl bg-paper">
       <svg viewBox="0 0 400 320" className="h-auto w-full" role="img" aria-label={label}>
         <g fill="#d9cfb8">
           {dots.map(([x, y]) => (
@@ -53,7 +53,7 @@ export function Coverage() {
   const message = result ? coverage.results[result.status].replace("{zip}", result.zip) : null;
 
   return (
-    <section id="coverage" className="section-pad scroll-mt-16 border-t border-line/70 bg-mist/60">
+    <section id="coverage" className="section-pad scroll-mt-16 bg-mist/60">
       <Container>
         <div className="grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-20">
           <div>

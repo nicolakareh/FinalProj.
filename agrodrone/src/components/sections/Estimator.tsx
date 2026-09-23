@@ -35,13 +35,13 @@ export function Estimator() {
   }
 
   return (
-    <section id="estimator" className="section-pad scroll-mt-16 border-t border-line/70">
+    <section id="estimator" className="section-pad scroll-mt-16">
       <Container>
         <SectionHeader eyebrow={estimator.eyebrow} title={estimator.headline} lead={estimator.lead} />
 
         <div className="section-gap grid gap-4 lg:grid-cols-[1fr_1fr]">
           <Reveal delay={0.05} amount={0.2}>
-          <form className="h-full rounded-3xl border border-line bg-paper p-5 sm:p-8" onSubmit={(e) => e.preventDefault()}>
+          <form className="h-full rounded-3xl bg-mist/70 p-5 sm:p-8" onSubmit={(e) => e.preventDefault()}>
             <div className="grid gap-6">
               <div>
                 <label htmlFor={acresId} className="type-eyebrow text-ink-3">

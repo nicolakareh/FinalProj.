@@ -6,7 +6,7 @@ import { site } from "@/content/site";
 import { cn } from "@/lib/cn";
 import { Container } from "@/components/ui/Container";
 import { SectionHeader } from "@/components/ui/SectionHeader";
-import { MediaPlaceholder } from "@/components/ui/MediaPlaceholder";
+import { MediaImage } from "@/components/ui/Media";
 import { Reveal, EASE_OUT } from "@/components/ui/Reveal";
 import { Check } from "@/components/ui/Icons";
 
@@ -14,7 +14,9 @@ import { Check } from "@/components/ui/Icons";
  * Tabbed services. The underline slides between tabs (shared layout), and the
  * panel crossfades: old and new panels share one grid cell so height never jumps.
  */
-export function Services() {
+type ServiceImages = Record<(typeof site.services.tabs)[number]["id"], string | null>;
+
+export function Services({ images }: { images: ServiceImages }) {
   const { services } = site;
   const [active, setActive] = useState(0);
   const baseId = useId();
@@ -34,7 +36,7 @@ export function Services() {
   }
 
   return (
-    <section id="services" className="section-pad scroll-mt-16 border-t border-line/70">
+    <section id="services" className="section-pad scroll-mt-16">
       <Container>
         <SectionHeader eyebrow={services.eyebrow} title={services.headline} lead={services.lead} />
 
@@ -104,7 +106,7 @@ export function Services() {
                 </ul>
               </div>
               {/* Intended shot for each tab is documented next to `media` in content/site.ts. */}
-              <MediaPlaceholder label={tab.media} className="aspect-[4/3] lg:aspect-[5/4]" />
+              <MediaImage src={images[tab.id]} alt={tab.media} label={tab.media} sizes="(min-width: 1024px) 560px, 100vw" className="relative aspect-[4/3] overflow-hidden rounded-2xl lg:aspect-[5/4]" />
             </motion.div>
           </AnimatePresence>
         </div>

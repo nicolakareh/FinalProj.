@@ -30,6 +30,7 @@ export const site = {
       "Fertilizer, crop protection and seeding by drone: mapped to the row, done in hours, nothing on the ground.",
     primary: { label: "Get a quote", href: "#quote" },
     secondary: { label: "See how it works", href: "#how-it-works" },
+    scrollCue: "Scroll",
     /** PLACEHOLDER trust items. Edit or remove once the real claims are confirmed. */
     trust: ["Licensed operators", "Every acre mapped", "No soil compaction"],
     /**
@@ -43,7 +44,7 @@ export const site = {
 
   /** Empty, labeled slot where partner or press logos will go. No fake logos. */
   proof: {
-    enabled: true,
+    enabled: false,
     label: "Reserved for partner and press logos",
     slots: 5,
   },
@@ -196,6 +197,22 @@ export const site = {
         media: "As-applied map on a tablet in the field",
       },
     ],
+  },
+
+  aircraft: {
+    eyebrow: "The aircraft",
+    headline: "Built for big fields.",
+    lead: "Agras-class spray drones carry a large tank, cover a wide swath each pass, and hold their height over uneven ground.",
+    /** PLACEHOLDER: set the exact model once the fleet is confirmed. */
+    model: "DJI Agras series",
+    /** Qualitative only. Add figures from the manufacturer spec sheet when confirmed. */
+    points: [
+      { title: "Wide swath", body: "Each pass covers a wide strip, so a large field takes few passes." },
+      { title: "Terrain following", body: "Radar holds altitude over slopes and uneven ground." },
+      { title: "Obstacle sensing", body: "Sees poles, trees and lines, and flies around them." },
+    ],
+    /** Intended shot: the aircraft on the ground at dawn, three-quarter view, field behind, or a low aerial of it mid-pass. */
+    media: "Aircraft photo",
   },
 
   comparison: {

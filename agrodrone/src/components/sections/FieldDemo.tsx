@@ -164,7 +164,7 @@ export function FieldDemo() {
   const coveredPct = Math.round(frame.covered * 100);
 
   return (
-    <section id="demo" className="section-pad scroll-mt-16 border-t border-line/70 bg-mist/60">
+    <section id="demo" className="section-pad scroll-mt-16 bg-mist/60">
       <Container>
         <SectionHeader eyebrow={demo.eyebrow} title={demo.headline} lead={demo.lead} />
 
