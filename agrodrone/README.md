@@ -21,6 +21,10 @@ npm run lint
 | `src/app/globals.css` | Design tokens (colors, type scale, section rhythm). |
 | `public/media/` | Video and image assets. See the README there for the intended shots. |
 
+## Checks
+
+`npm run lint`, `npx tsc --noEmit`, and `npm run build` must all pass. For a Lighthouse run against a production build: `npm run build && npm start`, then `npx lighthouse http://localhost:3000` (add `--preset=desktop` for the desktop profile). The reference capture script at `../reference/capture.mjs` can also screenshot this site: `CAPTURE_SITES="agrodrone=http://localhost:3000/" node ../reference/capture.mjs --out shots`.
+
 ## Placeholders to replace before launch
 
 - Stats values (`XX%`) and their sources in `content/site.ts`.

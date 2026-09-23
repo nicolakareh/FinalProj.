@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useSyncExternalStore } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { site } from "@/content/site";
 import { cn } from "@/lib/cn";
 import { Container } from "@/components/ui/Container";
@@ -32,6 +33,15 @@ export function Nav() {
   const scrolled = useScrolled();
   const [open, setOpen] = useState(false);
   const solid = scrolled || open;
+
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open]);
 
   return (
     <header
@@ -67,7 +77,7 @@ export function Nav() {
           </Button>
           <button
             type="button"
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full md:hidden"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-full transition-colors duration-200 hover:bg-current/10 md:hidden"
             aria-expanded={open}
             aria-controls="mobile-menu"
             aria-label={open ? "Close menu" : "Open menu"}
@@ -78,18 +88,38 @@ export function Nav() {
         </div>
       </Container>
 
-      <div id="mobile-menu" hidden={!open} className="border-t border-line/70 bg-paper md:hidden">
-        <Container className="flex flex-col gap-1 py-4">
-          {site.nav.links.map((link) => (
-            <a key={link.href} href={link.href} onClick={() => setOpen(false)} className="rounded-lg px-2 py-3 text-lg font-medium text-ink hover:bg-ink/5">
-              {link.label}
-            </a>
-          ))}
-          <Button href={site.nav.cta.href} onClick={() => setOpen(false)} className="mt-3 w-full sm:hidden">
-            {site.nav.cta.label}
-          </Button>
-        </Container>
-      </div>
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            id="mobile-menu"
+            key="mobile-menu"
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.2, ease: [0.25, 1, 0.5, 1] }}
+            className="border-t border-line/70 bg-paper md:hidden"
+          >
+            <Container className="flex flex-col gap-1 py-4">
+              {site.nav.links.map((link, i) => (
+                <motion.a
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setOpen(false)}
+                  initial={{ opacity: 0, x: -6 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.04 + i * 0.04, duration: 0.25 }}
+                  className="rounded-lg px-2 py-3 text-lg font-medium text-ink transition-colors duration-200 hover:bg-ink/5"
+                >
+                  {link.label}
+                </motion.a>
+              ))}
+              <Button href={site.nav.cta.href} onClick={() => setOpen(false)} className="mt-3 w-full sm:hidden">
+                {site.nav.cta.label}
+              </Button>
+            </Container>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }

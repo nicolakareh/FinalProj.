@@ -1,10 +1,6 @@
-"use client";
-
-import { motion, type Variants } from "framer-motion";
 import { site } from "@/content/site";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
-import { EASE_OUT } from "@/components/ui/Reveal";
 
 /**
  * Placeholder for the hero video: a stylised field drawn in perspective, dark
@@ -36,18 +32,9 @@ function HeroPlaceholder() {
   );
 }
 
-const stagger: Variants = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.09, delayChildren: 0.15 } },
-};
-const rise: Variants = {
-  hidden: { opacity: 0, y: 28 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: EASE_OUT } },
-};
-const word: Variants = {
-  hidden: { y: "110%" },
-  show: { y: 0, transition: { duration: 0.8, ease: EASE_OUT } },
-};
+/** Entrance timing (seconds). Words rise first, then the rest in order. */
+const WORD_DELAY = 0.1;
+const WORD_STEP = 0.06;
 
 export function Hero() {
   const { hero } = site;
@@ -74,37 +61,35 @@ export function Hero() {
       </div>
 
       <Container className="relative pb-16 pt-40 sm:pb-20 lg:pb-24">
-        <motion.div variants={stagger} initial="hidden" animate="show">
-          <h1 className="type-display max-w-[13ch]">
-            {words.map((w, i) => (
-              <span key={`${w}-${i}`} className="inline-block overflow-hidden pb-[0.08em] align-bottom">
-                <motion.span data-reveal="" className="inline-block" variants={word}>
-                  {w}
-                  {i < words.length - 1 ? " " : ""}
-                </motion.span>
+        <h1 className="type-display max-w-[13ch]">
+          {words.map((w, i) => (
+            <span key={`${w}-${i}`} className="inline-block overflow-hidden pb-[0.08em] align-bottom">
+              <span className="rise-word inline-block" style={{ animationDelay: `${WORD_DELAY + i * WORD_STEP}s` }}>
+                {w}
+                {i < words.length - 1 ? "\u00A0" : ""}
               </span>
-            ))}
-          </h1>
-          <motion.p data-reveal="" variants={rise} className="type-lead mt-6 max-w-[40ch] text-paper/80">
-            {hero.subline}
-          </motion.p>
-          <motion.div data-reveal="" variants={rise} className="mt-10 flex flex-wrap gap-3">
-            <Button href={hero.primary.href} variant="inverse" size="lg" arrow>
-              {hero.primary.label}
-            </Button>
-            <Button href={hero.secondary.href} variant="ghost-inverse" size="lg">
-              {hero.secondary.label}
-            </Button>
-          </motion.div>
-          <motion.ul data-reveal="" variants={rise} className="mt-14 flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-paper/65">
-            {hero.trust.map((item, i) => (
-              <li key={item} className="flex items-center gap-3">
-                {i > 0 && <span aria-hidden="true" className="h-1 w-1 rounded-full bg-paper/40" />}
-                {item}
-              </li>
-            ))}
-          </motion.ul>
-        </motion.div>
+            </span>
+          ))}
+        </h1>
+        <p className="rise-block type-lead mt-6 max-w-[40ch] text-paper/80" style={{ animationDelay: `${WORD_DELAY + words.length * WORD_STEP + 0.1}s` }}>
+          {hero.subline}
+        </p>
+        <div className="rise-block mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap" style={{ animationDelay: `${WORD_DELAY + words.length * WORD_STEP + 0.2}s` }}>
+          <Button href={hero.primary.href} variant="inverse" size="lg" arrow className="w-full sm:w-auto">
+            {hero.primary.label}
+          </Button>
+          <Button href={hero.secondary.href} variant="ghost-inverse" size="lg" className="w-full sm:w-auto">
+            {hero.secondary.label}
+          </Button>
+        </div>
+        <ul className="rise-block mt-14 flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-paper/65" style={{ animationDelay: `${WORD_DELAY + words.length * WORD_STEP + 0.3}s` }}>
+          {hero.trust.map((item, i) => (
+            <li key={item} className="flex items-center gap-3">
+              {i > 0 && <span aria-hidden="true" className="h-1 w-1 rounded-full bg-paper/40" />}
+              {item}
+            </li>
+          ))}
+        </ul>
       </Container>
     </section>
   );

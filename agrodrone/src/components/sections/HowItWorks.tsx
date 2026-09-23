@@ -186,7 +186,7 @@ export function HowItWorks() {
           </div>
         </Container>
 
-        <Container className="mt-12 lg:mt-14">
+        <Container className="section-gap">
           <motion.ol ref={trackRef} style={{ x }} className="grid gap-4 sm:grid-cols-2 lg:flex lg:gap-6">
             {how.steps.map((step, i) => (
               <li key={step.title} className="lg:w-[440px] lg:shrink-0">

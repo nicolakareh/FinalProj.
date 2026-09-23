@@ -168,7 +168,7 @@ export function FieldDemo() {
       <Container>
         <SectionHeader eyebrow={demo.eyebrow} title={demo.headline} lead={demo.lead} />
 
-        <Reveal delay={0.1} amount={0.15} className="mt-14">
+        <Reveal delay={0.1} amount={0.15} className="section-gap">
           <div ref={frameRef} className="overflow-hidden rounded-3xl border border-line bg-paper shadow-[0_1px_2px_rgba(14,15,12,0.04),0_24px_60px_-30px_rgba(14,15,12,0.25)]">
             {/* Frame header: mission status and elapsed time, like a live console. */}
             <div className="flex items-center justify-between border-b border-line px-5 py-3 text-sm">
@@ -302,14 +302,15 @@ export function FieldDemo() {
                   <button
                     type="button"
                     onClick={togglePlay}
-                    className="inline-flex h-10 flex-1 items-center justify-center gap-2 rounded-full bg-ink px-4 text-sm font-medium text-paper transition-[background-color,transform] duration-200 ease-out hover:bg-field active:scale-[0.98]"
+                    className="inline-flex h-10 flex-1 items-center justify-center gap-2 rounded-full bg-ink px-4 text-sm font-medium text-paper transition-[background-color,transform] duration-200 ease-out hover:bg-field focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-field active:scale-[0.98]"
                   >
                     {playLabel}
                   </button>
                 </div>
 
-                <dl className="divide-y divide-line border-y border-line text-sm">
-                  <Row label={demo.panel.title} value="" heading />
+                <div>
+                  <p className="type-eyebrow border-t border-line pt-4 text-ink-3">{demo.panel.title}</p>
+                  <dl className="mt-1 divide-y divide-line border-b border-line text-sm">
                   <Row label={demo.panel.application} value={current.label} swatch={current.color} />
                   <Row label={demo.panel.field} value={`${acres} ac`} />
                   <Row label={demo.panel.passes} value={String(plan.passes)} />
@@ -317,7 +318,8 @@ export function FieldDemo() {
                   <Row label={demo.panel.swath} value={`${SWATH_METERS} m`} />
                   <Row label={demo.panel.coverage} value={`${coveredPct}%`} />
                   <Row label={demo.panel.time} value={formatMinutes(totalMinutes)} />
-                </dl>
+                  </dl>
+                </div>
               </div>
             </div>
           </div>
@@ -327,14 +329,7 @@ export function FieldDemo() {
   );
 }
 
-function Row({ label, value, swatch, heading }: { label: string; value: string; swatch?: string; heading?: boolean }) {
-  if (heading) {
-    return (
-      <div className="py-3">
-        <dt className="type-eyebrow text-ink-3">{label}</dt>
-      </div>
-    );
-  }
+function Row({ label, value, swatch }: { label: string; value: string; swatch?: string }) {
   return (
     <div className="flex items-center justify-between py-3">
       <dt className="text-ink-2">{label}</dt>

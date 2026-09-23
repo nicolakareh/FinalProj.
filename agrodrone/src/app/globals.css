@@ -8,7 +8,7 @@
   --color-paper: #fafaf7;
   --color-ink: #0e0f0c;
   --color-ink-2: #55584f;
-  --color-ink-3: #8b8e85;
+  --color-ink-3: #6f7269;
   --color-field: #3f6b3a;
   --color-field-deep: #2f5230;
   --color-field-soft: #e9efe4;
@@ -37,6 +37,12 @@
   }
   ::selection {
     background: color-mix(in srgb, var(--color-field) 22%, transparent);
+  }
+  /* One focus style for everything keyboard-reachable. Components that draw
+     their own ring opt out with outline-none. */
+  :where(a, button, input, select, textarea, [tabindex]):focus-visible {
+    outline: 2px solid var(--color-field);
+    outline-offset: 3px;
   }
   @media (prefers-reduced-motion: reduce) {
     html {
@@ -94,6 +100,36 @@
 }
 @utility section-pad {
   padding-block: clamp(5rem, 4rem + 6vw, 9rem);
+}
+/* Gap between a section header and its content. Same everywhere. */
+@utility section-gap {
+  margin-top: clamp(3rem, 2.5rem + 2vw, 4rem);
+}
+
+/* Hero entrance. Pure CSS so the fold paints before hydration. */
+@keyframes word-rise {
+  from {
+    transform: translateY(110%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+@keyframes block-rise {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@utility rise-word {
+  animation: word-rise 0.7s var(--ease-out-expo) both;
+}
+@utility rise-block {
+  animation: block-rise 0.6s var(--ease-out-quart) both;
 }
 
 /* Slow drift on the hero placeholder so the fold has life until the video lands. */

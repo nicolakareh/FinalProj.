@@ -76,7 +76,7 @@ export function Coverage() {
                     setZip(e.target.value.replace(/\D/g, "").slice(0, 5));
                     setResult(null);
                   }}
-                  className="h-12 w-full rounded-full border border-line bg-paper px-5 text-base tabular-nums outline-none transition-[border-color,box-shadow] duration-200 placeholder:text-ink-3 focus:border-field focus:ring-4 focus:ring-field/15"
+                  className="h-12 w-full rounded-full border border-line bg-paper px-5 text-base tabular-nums outline-none transition-[border-color,box-shadow] duration-200 placeholder:text-ink-3 hover:border-ink/35 focus:border-field focus:ring-4 focus:ring-field/15"
                 />
                 <Button type="submit" size="lg">
                   {coverage.button}

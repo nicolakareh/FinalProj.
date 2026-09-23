@@ -39,7 +39,7 @@ export function Services() {
         <SectionHeader eyebrow={services.eyebrow} title={services.headline} lead={services.lead} />
 
         <Reveal delay={0.1} y={12}>
-          <div role="tablist" aria-label={services.eyebrow} className="mt-12 -mx-5 flex gap-1 overflow-x-auto border-b border-line px-5 sm:mx-0 sm:px-0">
+          <div role="tablist" aria-label={services.eyebrow} className="section-gap -mx-5 flex gap-1 overflow-x-auto border-b border-line px-5 sm:mx-0 sm:px-0">
             {services.tabs.map((t, i) => (
               <button
                 key={t.id}
@@ -70,7 +70,7 @@ export function Services() {
           </div>
         </Reveal>
 
-        <div className="mt-12 grid">
+        <div className="mt-10 grid lg:mt-12">
           <AnimatePresence initial={false}>
             <motion.div
               key={tab.id}

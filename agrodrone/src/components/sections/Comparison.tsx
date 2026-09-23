@@ -12,7 +12,7 @@ export function Comparison() {
     <section id="compare" className="section-pad scroll-mt-16 bg-mist/60">
       <Container>
         <SectionHeader eyebrow={comparison.eyebrow} title={comparison.headline} lead={comparison.lead} />
-        <Reveal delay={0.1} amount={0.1} className="mt-14 overflow-hidden rounded-3xl border border-line bg-paper">
+        <Reveal delay={0.1} amount={0.1} className="section-gap overflow-hidden rounded-3xl border border-line bg-paper">
           <div className={`hidden border-b border-line md:grid ${gridCols}`} aria-hidden="true">
             <div className="type-eyebrow p-6 text-ink-3">{columns.criterion}</div>
             <div className="type-eyebrow bg-field-soft/70 p-6 text-field">{columns.drone}</div>

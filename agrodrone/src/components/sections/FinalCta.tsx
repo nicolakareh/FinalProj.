@@ -24,7 +24,7 @@ function validate(v: Values): Errors {
 }
 
 const inputClass =
-  "h-12 w-full rounded-xl border bg-paper/5 px-4 text-base text-paper outline-none transition-[border-color,box-shadow] duration-200 placeholder:text-paper/35 focus:border-paper/70 focus:ring-4 focus:ring-paper/10";
+  "h-12 w-full rounded-xl border bg-paper/5 px-4 text-base text-paper outline-none transition-[border-color,box-shadow] duration-200 placeholder:text-paper/35 hover:border-paper/40 focus:border-paper/70 focus:ring-4 focus:ring-paper/10";
 
 /**
  * Quote request. Client-side validation and a success state only.

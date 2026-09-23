@@ -12,7 +12,7 @@ import { Reveal } from "@/components/ui/Reveal";
 export const PREFILL_EVENT = "agrodrone:prefill";
 
 const fieldClass =
-  "h-12 w-full rounded-xl border border-line bg-paper px-4 text-base text-ink outline-none transition-[border-color,box-shadow] duration-200 placeholder:text-ink-3 focus:border-field focus:ring-4 focus:ring-field/15";
+  "h-12 w-full rounded-xl border border-line bg-paper px-4 text-base text-ink outline-none transition-[border-color,box-shadow] duration-200 placeholder:text-ink-3 hover:border-ink/35 focus:border-field focus:ring-4 focus:ring-field/15";
 
 /**
  * Acreage estimator. Rates are PLACEHOLDER constants at the top of
@@ -39,7 +39,7 @@ export function Estimator() {
       <Container>
         <SectionHeader eyebrow={estimator.eyebrow} title={estimator.headline} lead={estimator.lead} />
 
-        <div className="mt-14 grid gap-4 lg:grid-cols-[1fr_1fr]">
+        <div className="section-gap grid gap-4 lg:grid-cols-[1fr_1fr]">
           <Reveal delay={0.05} amount={0.2}>
           <form className="h-full rounded-3xl border border-line bg-paper p-5 sm:p-8" onSubmit={(e) => e.preventDefault()}>
             <div className="grid gap-6">
@@ -84,7 +84,8 @@ export function Estimator() {
                         application === a.id ? "bg-ink text-paper" : "text-ink-2 hover:text-ink",
                       )}
                     >
-                      {a.label}
+                      <span className="sm:hidden">{a.short}</span>
+                      <span className="hidden sm:inline">{a.label}</span>
                     </button>
                   ))}
                 </div>

@@ -247,11 +247,12 @@ export const site = {
       { id: "pasture", label: "Pasture" },
       { id: "other", label: "Other" },
     ] satisfies { id: CropId; label: string }[],
+    /** `short` is used on narrow screens where the full label would wrap. */
     applications: [
-      { id: "fertilizer", label: "Fertilizer" },
-      { id: "protection", label: "Crop protection" },
-      { id: "seeding", label: "Seeding" },
-    ] satisfies { id: ApplicationId; label: string }[],
+      { id: "fertilizer", label: "Fertilizer", short: "Fertilizer" },
+      { id: "protection", label: "Crop protection", short: "Protection" },
+      { id: "seeding", label: "Seeding", short: "Seeding" },
+    ] satisfies { id: ApplicationId; label: string; short: string }[],
     resultLabel: "Estimated time on field",
     resultBadge: "Estimate",
     disclaimer: "Estimate only. Final timing depends on terrain, obstacles and weather.",
