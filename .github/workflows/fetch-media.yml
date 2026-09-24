@@ -4,6 +4,9 @@
 name: Fetch generated media
 on:
   workflow_dispatch:
+  push:
+    branches: [claude/sleepy-keller-n5k33c]
+    paths: [.github/workflows/fetch-media.yml]
 permissions:
   contents: write
 jobs:
