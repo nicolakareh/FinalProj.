@@ -10,7 +10,7 @@ mainsail/
   assets/js/site.js          behaviour (nav, reveals, count-up, hover images, form, transitions)
   assets/fonts/              Geist, Geist Mono, Instrument Serif (Latin subsets)
   assets/img/                responsive photography (avif / webp / jpg at 900 / 1800 / 2600 px) + favicon, OG card
-  assets/video/              hero loop (generated with Higgsfield from the hero still)
+  assets/video/              hero loop: hero.webm / hero.mp4 plus 720p phone versions (Higgsfield Kling, from the hero still)
   assets/img/src/            2400px source photos the variants are generated from
   build/data.js              ALL SITE COPY lives here
   build/build.js             generates the HTML pages from data.js
@@ -44,6 +44,10 @@ Drop a photo into `assets/img/src/`, point the matching key in `build/images.js`
 ```bash
 cd mainsail/build && npm install && npm run images
 ```
+
+## Hero video
+
+The loop only loads after the page has painted, never on reduced-motion or data-saver settings, and pauses when scrolled out of view. The still image is always the poster and the fallback. To swap it, replace the four files in `assets/video/` (WebM and MP4, full and 720p).
 
 ## Contact form
 
