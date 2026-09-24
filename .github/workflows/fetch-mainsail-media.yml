@@ -27,6 +27,8 @@ jobs:
           mkdir -p mainsail/assets/video mainsail/build/review
           ffmpeg -y -v error -i /tmp/hero-src.mp4 -an -vf "scale=1920:-2" -r 24 -c:v libx264 -preset slow -crf 25 -pix_fmt yuv420p -movflags +faststart mainsail/assets/video/hero.mp4
           ffmpeg -y -v error -i /tmp/hero-src.mp4 -an -vf "scale=1280:-2" -r 24 -c:v libx264 -preset slow -crf 27 -pix_fmt yuv420p -movflags +faststart mainsail/assets/video/hero-720.mp4
+          ffmpeg -y -v error -i /tmp/hero-src.mp4 -an -vf "scale=1920:-2" -r 24 -c:v libvpx-vp9 -b:v 0 -crf 34 -row-mt 1 -deadline good -cpu-used 2 -pix_fmt yuv420p mainsail/assets/video/hero.webm
+          ffmpeg -y -v error -i /tmp/hero-src.mp4 -an -vf "scale=1280:-2" -r 24 -c:v libvpx-vp9 -b:v 0 -crf 36 -row-mt 1 -deadline good -cpu-used 2 -pix_fmt yuv420p mainsail/assets/video/hero-720.webm
           ffmpeg -y -v error -i /tmp/hero-src.mp4 -vf "fps=0.6,scale=480:-1,tile=3x2" -frames:v 1 -q:v 4 mainsail/build/review/hero-frames.jpg
           ls -la mainsail/assets/video mainsail/build/review
       - name: Upscaled photography (to 2800px JPEG sources)

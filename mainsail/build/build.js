@@ -113,7 +113,7 @@ function homePage() {
   h += header(root, 'home');
   h += `<main id="main">
 <section class="hero">
-<div class="hero__media">${img('hero', 'A white sail-shaped canopy against a clear morning sky', { eager: true }, root)}<video class="hero__video" muted loop playsinline preload="none" poster="assets/img/hero-1800.jpg" aria-hidden="true" data-src="assets/video/hero.mp4"></video></div>
+<div class="hero__media">${img('hero', 'A white sail-shaped canopy against a clear morning sky', { eager: true }, root)}<video class="hero__video" muted loop playsinline preload="none" poster="assets/img/hero-1800.jpg" aria-hidden="true" data-mp4="assets/video/hero.mp4" data-webm="assets/video/hero.webm"></video></div>
 <div class="wrap">
 <div class="hero__top">
 <span class="eyebrow" data-reveal="fade">${esc(home.heroEyebrow)}</span>

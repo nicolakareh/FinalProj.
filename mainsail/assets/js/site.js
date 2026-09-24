@@ -86,9 +86,12 @@
   /* ---------- Hero video: load after paint, only when it makes sense ---------- */
   const hv = $('.hero__video');
   const saveData = navigator.connection && navigator.connection.saveData;
-  if (hv && hv.dataset.src && !reduce && !saveData) {
+  if (hv && hv.dataset.mp4 && !reduce && !saveData) {
     const start = () => {
-      hv.src = window.matchMedia('(max-width: 900px)').matches ? hv.dataset.src.replace('hero.mp4', 'hero-720.mp4') : hv.dataset.src; hv.load();
+      const webm = hv.canPlayType('video/webm; codecs="vp9"') && hv.dataset.webm;
+      let src = webm || hv.dataset.mp4;
+      if (window.matchMedia('(max-width: 900px)').matches) src = src.replace('hero.', 'hero-720.');
+      hv.src = src; hv.load();
       hv.addEventListener('playing', () => hv.classList.add('is-playing'), { once: true });
       hv.play().catch(() => {});
     };
