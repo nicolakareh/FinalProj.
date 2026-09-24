@@ -11,7 +11,9 @@ import path from "node:path";
 const FILES = {
   heroVideo: "media/hero.mp4",
   heroPoster: "media/hero-poster.jpg",
+  heroPosterSmall: "media/hero-poster-1200.jpg",
   aircraft: "media/aircraft.jpg",
+  aircraftSmall: "media/aircraft-1200.jpg",
   serviceFertilizer: "media/service-fertilizer.jpg",
   serviceProtection: "media/service-protection.jpg",
   serviceSeeding: "media/service-seeding.jpg",

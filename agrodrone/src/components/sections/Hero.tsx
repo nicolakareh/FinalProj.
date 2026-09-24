@@ -1,5 +1,7 @@
+import { preload } from "react-dom";
 import { site } from "@/content/site";
 import type { Media } from "@/lib/media";
+import { HeroVideo } from "./HeroVideo";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { ArrowRight } from "@/components/ui/Icons";
@@ -49,17 +51,36 @@ export function Hero({ media }: { media: Media }) {
   const { hero } = site;
   const words = hero.headline.split(" ");
   const afterWords = WORD_DELAY + words.length * WORD_STEP;
+  const poster = media.heroPoster;
+  const posterSmall = media.heroPosterSmall ?? poster;
+
+  // The poster is the largest paint on the page, so ask for it before the
+  // parser reaches it, with the size that matches the viewport.
+  if (poster) {
+    preload(poster, {
+      as: "image",
+      fetchPriority: "high",
+      imageSrcSet: posterSmall !== poster ? `${posterSmall} 1200w, ${poster} 2400w` : undefined,
+      imageSizes: "100vw",
+    });
+  }
+
   return (
     <section id="top" className="relative flex min-h-[100svh] items-end overflow-hidden bg-ink text-paper">
       <div className="absolute inset-0">
-        {media.heroVideo ? (
-          <video className="absolute inset-0 h-full w-full object-cover" src={media.heroVideo} poster={media.heroPoster ?? undefined} autoPlay muted loop playsInline preload="metadata" />
-        ) : media.heroPoster ? (
+        {poster && (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={media.heroPoster} alt="" className="absolute inset-0 h-full w-full object-cover" fetchPriority="high" />
-        ) : (
-          <HeroFallback />
+          <img
+            src={poster}
+            srcSet={posterSmall !== poster ? `${posterSmall} 1200w, ${poster} 2400w` : undefined}
+            sizes="100vw"
+            alt=""
+            className="absolute inset-0 h-full w-full object-cover object-[68%_40%] sm:object-center"
+            fetchPriority="high"
+            decoding="async"
+          />
         )}
+        {media.heroVideo ? <HeroVideo src={media.heroVideo} /> : !poster ? <HeroFallback /> : null}
         {/* Legibility scrim, stronger at the bottom where the copy sits. */}
         <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(14,15,12,0.72)_0%,rgba(14,15,12,0.25)_45%,rgba(14,15,12,0.1)_100%)]" aria-hidden="true" />
       </div>

@@ -1,6 +1,6 @@
 # Media assets
 
-Drop finished files here with these exact names. The site checks for them at build time and swaps out the placeholder automatically; nothing else needs to change.
+Drop finished files here with these exact names. The site checks for them at build time and swaps out the placeholder automatically; nothing else needs to change. The current files were generated with Higgsfield (GPT Image 2.5 for the stills, Seedance 2.5 for the clip) from the prompts below; replace any of them with real footage of the fleet when it exists. `hero-poster-1200.jpg` and `aircraft-1200.jpg` are the phone-sized variants the page serves on narrow screens; regenerate them if you swap the originals.
 
 | File | Where it appears | Intended shot |
 | --- | --- | --- |

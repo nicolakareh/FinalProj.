@@ -19,7 +19,15 @@ export function Aircraft({ media }: { media: Media }) {
       {photo ? (
         <>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={photo} alt="" className="absolute inset-0 h-full w-full object-cover" loading="lazy" />
+          <img
+            src={photo}
+            srcSet={media.aircraftSmall ? `${media.aircraftSmall} 1200w, ${photo} 2400w` : undefined}
+            sizes="100vw"
+            alt=""
+            className="absolute inset-0 h-full w-full object-cover"
+            loading="lazy"
+            decoding="async"
+          />
           <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(14,15,12,0.85)_0%,rgba(14,15,12,0.55)_50%,rgba(14,15,12,0.35)_100%)]" aria-hidden="true" />
         </>
       ) : null}
