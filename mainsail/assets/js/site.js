@@ -1,19 +1,43 @@
-/* Mainsail Consulting Group — site.js (v5)
+/* Mainsail Consulting Group — site.js (v3)
    Progressive enhancement only: the site is fully usable without it. */
 (() => {
   'use strict';
   const d = document;
   d.documentElement.classList.add('js');
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
   const $ = (s, r = d) => r.querySelector(s);
   const $$ = (s, r = d) => Array.from(r.querySelectorAll(s));
 
-  /* ---------- Header: soft shadow once the page has scrolled ---------- */
+  /* ---------- Header: blur on scroll, hide on scroll down ---------- */
   const header = $('.header');
-  let ticking = false;
-  const onScroll = () => { header.classList.toggle('is-scrolled', window.scrollY > 8); ticking = false; };
+  let lastY = window.scrollY, ticking = false;
+  const onScroll = () => {
+    const y = window.scrollY;
+    header.classList.toggle('is-scrolled', y > 24);
+    if (!header.classList.contains('menu-open')) header.classList.toggle('is-hidden', y > lastY && y > 360);
+    lastY = y; ticking = false;
+  };
   window.addEventListener('scroll', () => { if (!ticking) { requestAnimationFrame(onScroll); ticking = true; } }, { passive: true });
   onScroll();
+
+  /* ---------- Header: invert while it sits over a dark section ---------- */
+  const darks = $$('.dark, .statement, .footer');
+  let darkIO = null;
+  const watchDark = () => {
+    if (darkIO) darkIO.disconnect();
+    const over = new Set();
+    // the root is shrunk to the top band of the viewport, where the header lives
+    darkIO = new IntersectionObserver((entries) => {
+      entries.forEach(en => { en.isIntersecting ? over.add(en.target) : over.delete(en.target); });
+      header.classList.toggle('is-dark', over.size > 0);
+    }, { rootMargin: `0px 0px -${Math.max(0, window.innerHeight - 40)}px 0px`, threshold: 0 });
+    darks.forEach(el => darkIO.observe(el));
+  };
+  if (darks.length) {
+    watchDark();
+    let rt; window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(watchDark, 150); });
+  }
 
   /* ---------- Mobile nav ---------- */
   const toggle = $('.nav-toggle'), nav = $('.nav');
@@ -21,31 +45,61 @@
     const setOpen = (open) => {
       toggle.setAttribute('aria-expanded', String(open));
       nav.classList.toggle('is-open', open);
+      header.classList.toggle('menu-open', open);
       d.documentElement.style.overflow = open ? 'hidden' : '';
+      if (open) header.classList.remove('is-hidden');
     };
     toggle.addEventListener('click', () => setOpen(toggle.getAttribute('aria-expanded') !== 'true'));
     $$('a', nav).forEach(a => a.addEventListener('click', () => setOpen(false)));
     d.addEventListener('keydown', e => { if (e.key === 'Escape') setOpen(false); });
-    window.matchMedia('(min-width: 901px)').addEventListener('change', e => { if (e.matches) setOpen(false); });
   }
 
-  /* ---------- Reveal on scroll ---------- */
+  /* ---------- Reveal on scroll (text, images, hairlines, timeline) ---------- */
   const io = new IntersectionObserver((entries) => {
-    entries.forEach(en => { if (!en.isIntersecting) return; en.target.classList.add('is-in'); io.unobserve(en.target); });
-  }, { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
-  $$('[data-reveal], .phases').forEach(el => io.observe(el));
+    entries.forEach(en => {
+      if (!en.isIntersecting) return;
+      en.target.classList.add('is-in');
+      $$('.reveal-img', en.target).forEach(c => c.classList.add('is-in')); // masked images inside
+      io.unobserve(en.target);
+    });
+  }, { rootMargin: '0px 0px -8% 0px', threshold: 0.06 });
+  $$('[data-reveal], .lines, .phases, .rule[data-draw]').forEach(el => io.observe(el));
+  // a fully clipped element never intersects, so masked images are driven by their parent
+  $$('.reveal-img').forEach(el => io.observe(el.parentElement));
 
   /* ---------- Count-up numbers ---------- */
   const ease = t => 1 - Math.pow(1 - t, 4);
   const countIO = new IntersectionObserver((entries) => {
     entries.forEach(en => {
       if (!en.isIntersecting) return;
-      const el = en.target, end = parseFloat(el.dataset.count), dur = reduce ? 0 : 1400, start = performance.now();
+      const el = en.target, end = parseFloat(el.dataset.count), dur = reduce ? 0 : 1600, start = performance.now();
       const step = (now) => { const p = dur ? Math.min(1, (now - start) / dur) : 1; el.textContent = Math.round(end * ease(p)).toString(); if (p < 1) requestAnimationFrame(step); };
       requestAnimationFrame(step); countIO.unobserve(el);
     });
-  }, { threshold: 0.5 });
+  }, { threshold: 0.6 });
   $$('[data-count]').forEach(el => countIO.observe(el));
+
+  /* ---------- Services: sticky preview follows hover (desktop) or scroll (touch) ---------- */
+  const list = $('.svc-list'), preview = $('.preview');
+  if (list && preview) {
+    const pics = $$('picture[data-key]', preview), cap = $('[data-cap]', preview), rows = $$('.svc', list);
+    const show = (key, title) => {
+      pics.forEach(p => p.classList.toggle('is-active', p.dataset.key === key));
+      if (cap && title) cap.textContent = title;
+    };
+    if (fine) {
+      rows.forEach(row => row.addEventListener('pointerenter', () => show(row.dataset.img, $('.svc__title', row).textContent)));
+    }
+    // while scrolling, the row nearest the middle of the viewport drives the preview
+    let raf = null;
+    const track = () => {
+      raf = null;
+      const mid = window.innerHeight * 0.5; let best = null, bestD = Infinity;
+      rows.forEach(r => { const b = r.getBoundingClientRect(); const c = b.top + b.height / 2; const dd = Math.abs(c - mid); if (dd < bestD) { bestD = dd; best = r; } });
+      if (best && !list.matches(':hover')) show(best.dataset.img, $('.svc__title', best).textContent);
+    };
+    window.addEventListener('scroll', () => { if (!raf) raf = requestAnimationFrame(track); }, { passive: true });
+  }
 
   /* ---------- Hero video: load after paint, only when it makes sense ---------- */
   const hv = $('.hero__video');
@@ -64,12 +118,12 @@
     new IntersectionObserver((en) => { en.forEach(e => { if (!hv.src) return; e.isIntersecting ? hv.play().catch(() => {}) : hv.pause(); }); }, { threshold: 0.05 }).observe(hv);
   }
 
-  /* ---------- Gentle parallax for the full-bleed statement image ---------- */
+  /* ---------- Parallax for full-bleed media ---------- */
   const px = $$('[data-parallax]');
   if (px.length && !reduce) {
     const update = () => {
       const vh = window.innerHeight;
-      px.forEach(el => { const r = el.parentElement.getBoundingClientRect(); if (r.bottom < 0 || r.top > vh) return; const p = (r.top + r.height / 2 - vh / 2) / vh; el.style.transform = `translate3d(0, ${p * -6}%, 0)`; });
+      px.forEach(el => { const r = el.parentElement.getBoundingClientRect(); if (r.bottom < 0 || r.top > vh) return; const p = (r.top + r.height / 2 - vh / 2) / vh; el.style.transform = `translate3d(0, ${p * -8}%, 0)`; });
     };
     window.addEventListener('scroll', () => requestAnimationFrame(update), { passive: true });
     update();
@@ -101,8 +155,20 @@
     });
   }
 
-  /* ---------- Back to top ---------- */
-  $$('.footer__top').forEach(a => a.addEventListener('click', (e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' }); }));
+  /* ---------- Page transitions ---------- */
+  const veil = $('.veil');
+  if (veil && !reduce) {
+    requestAnimationFrame(() => veil.classList.add('is-in'));
+    d.addEventListener('click', (e) => {
+      const a = e.target.closest('a[href]');
+      if (!a || a.target === '_blank' || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      const url = new URL(a.href, location.href);
+      if (url.origin !== location.origin || url.protocol === 'mailto:' || url.pathname === location.pathname) return;
+      e.preventDefault(); veil.classList.remove('is-in'); veil.classList.add('is-out');
+      setTimeout(() => { location.href = url.href; }, 520);
+    });
+    window.addEventListener('pageshow', (e) => { if (e.persisted) { veil.classList.remove('is-out'); veil.classList.add('is-in'); } });
+  }
 
   $$('[data-year]').forEach(el => { el.textContent = new Date().getFullYear(); });
 })();
