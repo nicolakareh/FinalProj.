@@ -21,6 +21,24 @@
   window.addEventListener('scroll', () => { if (!ticking) { requestAnimationFrame(onScroll); ticking = true; } }, { passive: true });
   onScroll();
 
+  /* ---------- Header: invert while it sits over a dark section ---------- */
+  const darks = $$('.dark, .statement, .footer');
+  let darkIO = null;
+  const watchDark = () => {
+    if (darkIO) darkIO.disconnect();
+    const over = new Set();
+    // the root is shrunk to the top band of the viewport, where the header lives
+    darkIO = new IntersectionObserver((entries) => {
+      entries.forEach(en => { en.isIntersecting ? over.add(en.target) : over.delete(en.target); });
+      header.classList.toggle('is-dark', over.size > 0);
+    }, { rootMargin: `0px 0px -${Math.max(0, window.innerHeight - 40)}px 0px`, threshold: 0 });
+    darks.forEach(el => darkIO.observe(el));
+  };
+  if (darks.length) {
+    watchDark();
+    let rt; window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(watchDark, 150); });
+  }
+
   /* ---------- Mobile nav ---------- */
   const toggle = $('.nav-toggle'), nav = $('.nav');
   if (toggle && nav) {

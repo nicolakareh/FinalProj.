@@ -41,7 +41,6 @@ function head({ title, desc, canonical, root, jsonld, ogImage }) {
 <link rel="icon" href="${root}assets/img/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="${root}assets/img/apple-touch-icon.png">
 <link rel="preload" href="${root}assets/fonts/geist-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="${root}assets/fonts/instrument-serif-latin-400-italic.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="${root}assets/css/site.css">
 ${jsonld ? `<script type="application/ld+json">${JSON.stringify(jsonld)}</script>` : ''}
 </head>
@@ -59,7 +58,7 @@ function header(root, current) {
 <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav" aria-label="Menu"><span></span></button>
 <nav class="nav" id="nav" aria-label="Primary">
 <div class="nav__links">${links.map(([t, h, cur]) => `<a href="${h}"${cur ? ' aria-current="page"' : ''}>${t}</a>`).join('')}</div>
-<a class="link link--fwd nav__cta" href="${homeUrl}#contact">Start a conversation ${ICON.arrow}</a>
+<a class="btn btn--sm nav__cta" href="${homeUrl}#contact">Start a conversation ${ICON.arrow}</a>
 </nav>
 </div>
 </header>`;
@@ -117,10 +116,10 @@ function homePage() {
 <div class="wrap">
 <div class="hero__top">
 <span class="eyebrow" data-reveal="fade">${esc(home.heroEyebrow)}</span>
-<span class="eyebrow eyebrow--sectors" data-reveal="fade">${sectors.map(s => esc(s.title)).join(' · ')}</span>
+<span class="eyebrow eyebrow--sectors" data-reveal="fade">${sectors.map(s => `<span>${esc(s.title)}</span>`).join('')}</span>
 </div>
 <h1 class="display hero__title lines">
-<span class="line"><span><span class="serif">${esc(home.heroTitle[0])}</span></span></span>
+<span class="line"><span>${esc(home.heroTitle[0])}</span></span>
 <span class="line"><span>${esc(home.heroTitle[1])}</span></span>
 <span class="line"><span>${esc(home.heroTitle[2])}</span></span>
 </h1>
@@ -147,7 +146,9 @@ ${services.map(s => `<a href="services/${s.slug}.html"><span class="num">${s.n}<
 </nav>
 
 <section class="section" id="about">
-<div class="wrap grid">
+<div class="wrap">
+<hr class="rule" data-draw>
+<div class="grid">
 <div class="col-5"><span class="eyebrow" data-reveal="fade">${esc(home.introEyebrow)}</span>
 <h2 class="h2" style="margin-top:22px" data-reveal>${esc(home.introTitle)}</h2></div>
 <div class="col-7 intro__text">
@@ -157,11 +158,12 @@ ${home.introText.map((p, i) => `<p class="${i === 0 ? 'lede' : 'body'}" data-rev
 ${home.stats.map(s => `<div class="stat"><span class="num" data-count="${s.value}">0</span><p>${esc(s.label)}</p></div>`).join('\n')}
 </div>
 </div>
+</div>
 </section>
 
-<hr class="rule" data-draw>
 <section class="section" id="services">
 <div class="wrap">
+<hr class="rule" data-draw>
 ${secHead(home.servicesEyebrow, esc(home.servicesTitle), home.servicesText)}
 <div class="services">
 <div class="svc-list" data-reveal="fade">
@@ -192,6 +194,7 @@ ${services.map((s, i) => img(s.img, '', { sizes: '(max-width: 900px) 0px, 40vw',
 
 <section class="section" id="sectors">
 <div class="wrap">
+<hr class="rule" data-draw>
 ${secHead(home.sectorsEyebrow, esc(home.sectorsTitle), home.sectorsText)}
 <div class="sectors">
 ${sectors.map((s, i) => `<article class="sector" data-reveal style="--d:${0.08 * i}s">
@@ -203,9 +206,9 @@ ${sectors.map((s, i) => `<article class="sector" data-reveal style="--d:${0.08 *
 </div>
 </section>
 
-<hr class="rule" data-draw>
 <section class="section" id="approach">
 <div class="wrap">
+<hr class="rule" data-draw>
 ${secHead(home.approachEyebrow, esc(home.approachTitle), '')}
 <div class="pillars">
 ${pillars.map((p, i) => `<div class="pillar" data-reveal style="--d:${0.1 * i}s"><span class="num">${p.n}</span><h3 class="h3">${esc(p.title)}</h3><span class="serif">${esc(p.sub)}</span><p>${esc(p.text)}</p></div>`).join('\n')}
@@ -213,8 +216,9 @@ ${pillars.map((p, i) => `<div class="pillar" data-reveal style="--d:${0.1 * i}s"
 </div>
 </section>
 
-<section class="section section--tight" style="padding-top:0">
+<section class="section section--tight">
 <div class="wrap">
+<hr class="rule" data-draw>
 ${secHead(home.phasesEyebrow, esc(home.phasesTitle), '')}
 <div class="phases">
 <div class="phases__track"></div><div class="phases__fill"></div>
@@ -223,7 +227,7 @@ ${secHead(home.phasesEyebrow, esc(home.phasesTitle), '')}
 </div>
 </section>
 
-<section class="section contact" id="contact">
+<section class="section contact dark" id="contact">
 <div class="wrap">
 <div class="contact__intro">
 <span class="eyebrow" data-reveal="fade">${esc(home.contactEyebrow)}</span>
@@ -263,6 +267,7 @@ function servicePage(s, i) {
   h += `<main id="main">
 <section class="page-hero">
 <div class="wrap">
+<hr class="rule" data-draw>
 <div class="page-hero__meta">
 <a class="link" href="${root}index.html#services">${ICON.arrowBack} All services</a>
 <span class="eyebrow">Service ${s.n} / 05</span>
@@ -272,7 +277,7 @@ function servicePage(s, i) {
 <div class="page-hero__art reveal-img">${img(s.img, s.title, { eager: true }, root)}</div>
 </div>
 </section>
-<section class="section article" style="padding-top:clamp(40px,6vw,88px)">
+<section class="section article">
 <div class="wrap">
 <aside class="article__aside" data-reveal>
 <span class="eyebrow">Overview</span>
