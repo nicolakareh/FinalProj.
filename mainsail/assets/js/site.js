@@ -63,7 +63,7 @@
       io.unobserve(en.target);
     });
   }, { rootMargin: '0px 0px -8% 0px', threshold: 0.06 });
-  $$('[data-reveal], .lines, .phases, .rule[data-draw]').forEach(el => io.observe(el));
+  $$('[data-reveal], .lines, .rule[data-draw]').forEach(el => io.observe(el));
   // a fully clipped element never intersects, so masked images are driven by their parent
   $$('.reveal-img').forEach(el => io.observe(el.parentElement));
 

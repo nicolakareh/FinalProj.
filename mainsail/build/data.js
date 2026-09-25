@@ -90,24 +90,16 @@ const services = [
 ];
 
 const sectors = [
-  { n: '01', title: 'Hospital', text: 'Project leadership within active, care-critical facilities.', img: 'hospital' },
-  { n: '02', title: 'Medical Services', text: 'Construction in densely populated, sensitive environments.', img: 'medical' },
-  { n: '03', title: 'Pharmaceutical', text: 'Precision delivery for regulated, high-stakes builds.', img: 'pharma' },
-  { n: '04', title: 'Higher Education', text: 'Campus capital projects, from planning to handover.', img: 'education' },
+  { n: '01', title: 'Hospital', img: 'hospital' },
+  { n: '02', title: 'Medical Services', img: 'medical' },
+  { n: '03', title: 'Pharmaceutical', img: 'pharma' },
+  { n: '04', title: 'Higher Education', img: 'education' },
 ];
 
 const pillars = [
-  { n: '01', title: 'Proven Expertise', sub: 'Decades, across sectors.', text: "With decades of experience managing complex projects across various sectors, Mainsail Consulting Group brings a depth of knowledge and reliability you can trust. Our team's attention to detail and commitment to excellence ensures your project is in capable hands every step of the way." },
-  { n: '02', title: 'Transparent Communication', sub: 'Real-time, always in the loop.', text: "We believe trust is built on transparency. At Mainsail, we keep you informed with real-time updates and clear communication, ensuring you're always in the loop and confident in our progress. Our open and honest approach fosters a partnership based on trust and collaboration." },
-  { n: '03', title: 'Commitment to Your Vision and Budget', sub: 'Your goals, our priority.', text: 'Your goals are our priority. We align our efforts with your mission, handling the complexities of project management while ensuring your vision is brought to life. With Mainsail, you can trust that we are dedicated to achieving the best possible outcomes for you and your stakeholders.' },
-];
-
-const phases = [
-  { n: '01', title: 'Design', text: 'Guidance from the earliest stages of design development.' },
-  { n: '02', title: 'Budgeting', text: 'Every budget item overseen, with cost control from day one.' },
-  { n: '03', title: 'Permitting', text: 'Approvals coordinated so the schedule holds.' },
-  { n: '04', title: 'Construction Oversight', text: 'Stakeholders aligned, risks mitigated, updates in real time.' },
-  { n: '05', title: 'Final Handover', text: 'Spaces ready for immediate use, and a smooth transition in.' },
+  { n: '01', title: 'Proven Expertise', text: "With decades of experience managing complex projects across various sectors, Mainsail Consulting Group brings a depth of knowledge and reliability you can trust. Our team's attention to detail and commitment to excellence ensures your project is in capable hands every step of the way." },
+  { n: '02', title: 'Transparent Communication', text: "We believe trust is built on transparency. At Mainsail, we keep you informed with real-time updates and clear communication, ensuring you're always in the loop and confident in our progress. Our open and honest approach fosters a partnership based on trust and collaboration." },
+  { n: '03', title: 'Commitment to Your Vision and Budget', text: 'Your goals are our priority. We align our efforts with your mission, handling the complexities of project management while ensuring your vision is brought to life. With Mainsail, you can trust that we are dedicated to achieving the best possible outcomes for you and your stakeholders.' },
 ];
 
 const home = {
@@ -115,36 +107,18 @@ const home = {
   heroTitle: ['Precision-driven', 'project', 'management.'],
   heroText: site.description,
   heroStat: { value: 130, label: 'Trusted with the oversight of 130 sites.' },
-  introEyebrow: 'Who we are',
   introTitle: 'A dedicated partner, aligned to your mission.',
   introText: [
     'Mainsail Consulting Group brings a tailored, hands-on approach to project management. We work as a dedicated partner, aligning our efforts with your mission to ensure project success. Our values of transparency, efficiency, and trust guide every decision we make, ensuring that we not only meet but exceed your expectations.',
     'We are committed to delivering exceptional client solutions through our expertise in owner project management and professional services. Our approach goes beyond merely meeting deadlines and budgets; we prioritize building trust and ensuring that every detail is meticulously addressed to achieve outstanding project outcomes.',
   ],
-  stats: [
-    { value: 130, label: 'Sites under management' },
-    { value: 5, label: 'Core services' },
-    { value: 4, label: 'Sectors served' },
-    { value: 5, label: 'Lifecycle phases' },
-  ],
-  servicesEyebrow: 'What we do',
   servicesTitle: 'Five disciplines, one standard.',
   servicesText: 'Our experienced team specializes in guiding complex projects from inception to completion, allowing our clients to focus on their broader vision while we navigate the intricacies of execution. From life sciences to large-scale facilities, we provide turnkey solutions that exceed expectations, all with a focus on transparency, efficiency, and client satisfaction.',
   statementTitle: 'Leave the stress with us.',
-  statementText: 'As the voice for project stakeholders, we take ownership of not just the project but also the relationships and responsibilities that come with working in a shared environment.',
   statementCta: 'Get a quote',
-  sectorsEyebrow: 'Where we work',
   sectorsTitle: 'Complexity is our default.',
-  sectorsText: "Four sectors where a disruption is never just a disruption, each demanding precision, discretion, and an owner's advocate on the ground.",
-  approachEyebrow: 'Partners you can trust',
   approachTitle: 'Built on trust.',
-  phasesEyebrow: 'How we work',
-  phasesTitle: 'Managed end to end. Every phase.',
-  contactEyebrow: 'Get in touch',
   contactTitle: 'Tell us about your project.',
-  contactText: 'We align our efforts with your mission and handle the complexities from here.',
-  contactThanks: 'Thanks for submitting!',
-  footerLine: 'Project leadership and risk management for large-scale construction.',
 };
 
-module.exports = { site, services, sectors, pillars, phases, home };
+module.exports = { site, services, sectors, pillars, home };
