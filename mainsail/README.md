@@ -8,7 +8,7 @@ mainsail/
   services/*.html            one page per service (5)
   assets/css/site.css        styles — design tokens at the top
   assets/js/site.js          behaviour (nav, reveals, count-up, hover images, form, transitions)
-  assets/fonts/              Geist, Geist Mono, Instrument Serif (Latin subsets)
+  assets/fonts/              Geist (Latin subset, variable weight)
   assets/img/                responsive photography (avif / webp / jpg at 900 / 1800 / 2600 px) + favicon, OG card
   assets/video/              hero loop: hero.webm / hero.mp4 plus 720p phone versions (Higgsfield Kling, from the hero still)
   assets/img/src/            2400px source photos the variants are generated from
