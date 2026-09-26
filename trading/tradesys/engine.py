@@ -143,9 +143,19 @@ class TradingEngine:
         """One pass over every (strategy, symbol); returns the number of intents produced."""
         now = now or utcnow()
         produced = 0
+        market_open: bool | None = None
         for cfg, strat, code_hash in self.strategies:
             secs = timeframe_seconds(cfg.timeframe)
             for symbol in cfg.symbols:
+                if not is_crypto(symbol):
+                    if market_open is None:
+                        try:
+                            market_open = self.broker.get_clock().is_open
+                        except Exception as e:
+                            log.warning("clock lookup failed: %s", e)
+                            market_open = False
+                    if not market_open:
+                        continue  # evaluate the completed bar at the next open instead of burning it now
                 try:
                     df = self.market_data.get_recent_bars(symbol, cfg.timeframe, strat.warmup + 60)
                 except Exception as e:
@@ -250,6 +260,7 @@ class TradingEngine:
     # ------------------------------------------------------------ maintenance
     def maintenance_tick(self) -> None:
         self.executor.reconcile()
+        self.executor.ensure_protective_stops()
         symbols = {t["symbol"] for t in self.db.open_trades()}
         if symbols:
             prices = self.market_data.get_latest_prices(symbols)

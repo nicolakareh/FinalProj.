@@ -166,3 +166,11 @@ def test_engine_writes_one_report_per_day_after_close(tmp_path):
     assert len(list((tmp_path / "reports").glob("*.md"))) == 1
     engine.risk_tick(datetime(2026, 3, 4, 16, 30, tzinfo=NY))
     assert len(list((tmp_path / "reports").glob("*.md"))) == 2
+
+
+def test_engine_waits_for_market_open_on_stocks(tmp_path):
+    engine, cfg, code_hash = make_engine(tmp_path)
+    engine.broker.market_open = False
+    assert engine.evaluate_strategies() == 0 and engine._last_bar == {}
+    engine.broker.market_open = True
+    assert engine.evaluate_strategies() == 1

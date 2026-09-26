@@ -198,3 +198,45 @@ def test_exit_all(tmp_path, db):
     assert ex.exit_all("halt") == 1
     drain(broker, ex)
     assert db.list_trades(status="closed")[0]["exit_reason"] == "halt"
+
+
+def test_entry_uses_live_price_and_rejects_drift(tmp_path, db):
+    settings, notifier, broker, rm, approvals, tracker, ex = build(tmp_path, db, prices={"AAPL": 100.0})
+    approvals.db.upsert_source("discord:1", "discord", "bob")
+    approvals.approve_source("discord:1", acknowledged=True)
+    # caller said 99, market is 100: within 2% -> sized off 100 (40 shares at $5 risk from stop 95)
+    assert ex.handle_signal(discord_signal(entry=99.0, stop=95.0, target=110.0)) == "accepted"
+    entry = [o for o in broker.orders.values() if o.side == "buy"][0]
+    assert entry.qty == 40
+    drain(broker, ex)
+    ex.exit_all("test"); drain(broker, ex)
+    # caller said 90, market is 100: stale call is rejected, nothing sent
+    n = len(broker.orders)
+    assert ex.handle_signal(discord_signal(symbol="AAPL", entry=90.0, stop=85.0, target=110.0)) == "rejected"
+    assert len(broker.orders) == n
+    assert "away from the signal entry" in db.list_signals("discord:1")[0]["status_reason"]
+
+
+def test_outside_holdings_do_not_count_against_cap(tmp_path, db):
+    from tradesys.execution.models import PositionSnapshot
+    settings, notifier, broker, rm, approvals, tracker, ex = build(tmp_path, db)
+    approve(db, approvals)
+    # a $9,500 holding the user made outside tradesys
+    broker.positions["NVDA"] = PositionSnapshot("NVDA", 10, 950.0, 950.0, 9_500.0, 9_500.0, 0.0, 0.0, 10)
+    broker.cash = 10_000
+    assert ex.handle_strategy_intent(CFG, "AAPL", Intent("buy", 95.0, 110.0), 100.0, HASH) == "accepted"
+    # but tradesys never sells it and never buys on top of it
+    assert ex.handle_strategy_intent(CFG, "NVDA", Intent("buy", 900.0, 1000.0), 950.0, HASH) == "rejected"
+
+
+def test_protective_stop_retry(tmp_path, db):
+    settings, notifier, broker, rm, approvals, tracker, ex = build(tmp_path, db)
+    approve(db, approvals)
+    ex.handle_strategy_intent(CFG, "BTC/USD", Intent("buy", 48_000.0, 56_000.0), 50_000.0, HASH)
+    drain(broker, ex)
+    trade = db.open_trades(mode="paper")[0]
+    db.update_trade(trade["id"], stop_order_id=None)  # pretend the first attempt failed
+    broker.cancel_all_orders()
+    assert ex.ensure_protective_stops() == 1
+    assert db.get_trade(trade["id"])["stop_order_id"] is not None
+    assert ex.ensure_protective_stops() == 0

@@ -37,10 +37,16 @@ class KillSwitch:
             log.exception("kill: cancel_all_orders failed")
         if flatten:
             try:
+                from ..signals.tracker import SourceTracker
+                prices = {p.symbol: p.current_price for p in self.broker.get_positions()}
                 closed = self.broker.close_all_positions()
                 result["positions_closed"] = len(closed)
+                tracker = SourceTracker(self.db)
                 for t in self.db.open_trades(mode=self.settings.mode):
-                    self.db.update_trade(t["id"], status="closed", exit_reason="kill", exit_time=None)
+                    if t["status"] == "open" and t["symbol"] in prices:
+                        tracker.close_trade(t["id"], prices[t["symbol"]], exit_reason="kill")
+                    else:
+                        tracker.cancel_trade(t["id"], "kill")
             except Exception as e:
                 result["errors"].append(f"close_all_positions: {e}")
                 log.exception("kill: close_all_positions failed")

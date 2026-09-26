@@ -33,7 +33,7 @@ cd trading
 python3.11 -m venv .venv && source .venv/bin/activate
 pip install -e ".[dev]"
 cp .env.example .env          # fill in keys, limits, alert settings
-pytest -q                     # 100+ tests, all offline
+pytest -q                     # full test suite, all offline
 tradesys check-config
 ```
 
@@ -160,8 +160,11 @@ notebook (shadow-tracked) or cross (rejected). It never logs in with your user a
 - Fees are estimated with the backtester's fee model (Alpaca stock regulatory fees on
   sells, 0.25% crypto). Check `FeeModel` against your Alpaca fee tier.
 - Daily/weekly P&L combines the ledger's realized P&L with the broker's unrealized
-  P&L for open positions. Trades placed outside tradesys are not counted, and the
-  capital cap only governs tradesys' own orders.
+  P&L for the positions tradesys opened. Holdings you keep in the same account
+  outside tradesys are not counted against the cap or the loss limits and are never
+  sold, so a dedicated account is the cleanest setup.
+- Discord entries are sized off the live price; a call whose entry is more than 2%
+  away from the current price is rejected rather than chased.
 - Alpaca accounts are margin accounts by default; tradesys never spends beyond
   settled cash, but a cash account removes the possibility entirely.
 - Backtests use daily/hourly bars from the free IEX feed unless `ALPACA_DATA_FEED=sip`.

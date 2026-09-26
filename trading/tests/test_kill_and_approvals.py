@@ -88,3 +88,16 @@ def test_source_approval_requires_acknowledgement(db):
     reg.approve_source("discord:1", acknowledged=True)
     assert reg.is_approved("discord:1")[0]
     assert len(reg.list()) == 1
+
+
+def test_kill_flatten_records_exit_pnl(settings, db):
+    from tradesys.signals import SourceTracker
+    rm = RiskManager(settings, db)
+    broker = FakeBroker(cash=10_000, prices={"AAPL": 100.0})
+    order = _buy(rm, broker, "AAPL", 10, 100.0, 95.0, 110.0)
+    tracker = SourceTracker(db)
+    tid = tracker.open_trade("strategy:x", "AAPL", "paper", 10, 100.0, 95.0, 110.0, entry_order_id=order.id)
+    broker.set_price("AAPL", 103.0)
+    KillSwitch(settings, db, broker, rm).trigger("t", flatten=True)
+    t = db.get_trade(tid)
+    assert t["status"] == "closed" and t["exit_reason"] == "kill" and t["pnl"] == 30.0

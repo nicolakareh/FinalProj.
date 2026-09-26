@@ -36,7 +36,7 @@ class Executor:
     def __init__(self, settings: Settings, db: Database, broker, risk: RiskManager, approvals: ApprovalRegistry,
                  tracker: SourceTracker, notifier: Notifier | None = None,
                  price_lookup: Callable[[str], float | None] | None = None, fees: FeeModel | None = None,
-                 shadow_max_days: int = 10):
+                 shadow_max_days: int = 10, max_entry_drift_pct: float = 2.0):
         self.settings = settings
         self.db = db
         self.broker = broker
@@ -48,6 +48,7 @@ class Executor:
         self.fees = fees or FeeModel()
         self.mode = settings.mode
         self.shadow_max_days = shadow_max_days
+        self.max_entry_drift_pct = max_entry_drift_pct
 
     # ------------------------------------------------------------ helpers
     def _notify(self, kind: str, msg: str) -> None:
@@ -70,11 +71,12 @@ class Executor:
                 return t
         return None
 
-    def _deployed(self, positions, open_orders) -> float:
-        deployed = sum(float(p.cost_basis) for p in positions if p.qty > 0)
-        deployed += sum(o.remaining_qty * float(o.limit_price or o.stop_price or 0.0)
-                        for o in open_orders if o.side == "buy" and o.is_open)
-        return deployed
+    def _reference_price(self, signal: Signal, hint: float | None) -> float | None:
+        """Live price first (that is what a market order fills at); the signal's entry only as a fallback."""
+        ref = self._price(signal.symbol, hint)
+        if ref is None and signal.entry:
+            ref = float(signal.entry)
+        return ref
 
     # ------------------------------------------------------------ signals
     def handle_strategy_intent(self, cfg: StrategyConfig, symbol: str, intent: Intent, price: float,
@@ -127,9 +129,11 @@ class Executor:
     # ------------------------------------------------------------ entries
     def _enter(self, signal: Signal, sig_id: int, price: float | None, reject) -> str:
         symbol = signal.symbol
-        ref = self._price(symbol, price if price else signal.entry)
+        ref = self._reference_price(signal, price)
         if ref is None:
             return reject("no price available")
+        if signal.entry and abs(ref / float(signal.entry) - 1.0) * 100.0 > self.max_entry_drift_pct:
+            return reject(f"price {ref:g} is more than {self.max_entry_drift_pct}% away from the signal entry {signal.entry:g}")
         stop = float(signal.stop) if signal.stop else ref * (1 - self.settings.default_stop_pct / 100.0)
         if stop >= ref:
             return reject(f"stop {stop} is not below entry {ref}")
@@ -148,7 +152,8 @@ class Executor:
             return reject(f"broker read failed: {e}")
 
         qty = position_size(self.settings.total_capital_cap, self.settings.max_risk_per_trade_pct, ref, stop,
-                            account.spendable_cash, self._deployed(positions, open_orders), fractional=asset.fractionable)
+                            account.spendable_cash, self.risk.deployed_notional(positions, open_orders, ref),
+                            fractional=asset.fractionable)
         if qty <= 0:
             return reject("position size rounds to zero (cap, cash or stop distance)")
         intent = OrderIntent(symbol=symbol, side="buy", qty=qty, order_type="market", reference_price=ref,
@@ -254,6 +259,18 @@ class Executor:
             self._notify("ERROR", f"Protective stop for {symbol} could not be placed ({e}); the software stop monitor "
                                   f"will exit at market if price falls below {trade['stop_price']}.")
 
+    def ensure_protective_stops(self) -> int:
+        """Retry the crypto stop order for any open crypto trade that has none (e.g. the position was not
+        visible yet when the fill arrived)."""
+        placed = 0
+        for trade in self.db.open_trades(mode=self.mode):
+            if trade["status"] == "open" and is_crypto(trade["symbol"]) and not trade.get("stop_order_id") \
+                    and not trade.get("exit_order_id"):
+                self._place_crypto_stop(trade)
+                if (self.db.get_trade(trade["id"]) or {}).get("stop_order_id"):
+                    placed += 1
+        return placed
+
     # ------------------------------------------------------------ fills
     def on_trade_update(self, event: str, order: OrderSnapshot, extra: dict | None = None) -> None:
         """Idempotent handler for broker trade updates (websocket or reconcile)."""
@@ -349,7 +366,7 @@ class Executor:
     def _open_shadow(self, signal: Signal, sig_id: int, price: float | None) -> int | None:
         if self.open_trade_for(signal.source_id, signal.symbol, "shadow") is not None:
             return None
-        ref = self._price(signal.symbol, price if price else signal.entry)
+        ref = self._reference_price(signal, price)
         if ref is None:
             return None
         stop = float(signal.stop) if signal.stop else ref * (1 - self.settings.default_stop_pct / 100.0)

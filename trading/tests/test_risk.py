@@ -24,6 +24,14 @@ def position(symbol="AAPL", qty=10, entry=100.0, price=100.0, intraday=0.0):
     return PositionSnapshot(symbol, qty, entry, price, qty * price, qty * entry, (price - entry) * qty, intraday, qty)
 
 
+def own(db, *positions, mode="paper"):
+    """Register positions as tradesys-owned open trades so the cap / loss limits count them."""
+    for p in positions:
+        db.insert_trade(source_id="strategy:x", symbol=p.symbol, mode=mode, qty=p.qty, entry_price=p.avg_entry_price,
+                        stop_price=p.avg_entry_price * 0.95, status="open", entry_time=utcnow())
+    return list(positions)
+
+
 STOCK = AssetInfo("AAPL", "us_equity", True, False)
 OPEN = ClockInfo(True, None, None)
 
@@ -67,14 +75,17 @@ def test_two_percent_risk_cap(rm):
     assert rm.evaluate(intent(qty=40), account(), [], [], STOCK, OPEN).allowed
 
 
-def test_capital_cap_counts_positions_and_open_buys(rm):
-    held = [position("MSFT", qty=90, entry=100)]  # $9,000 deployed
+def test_capital_cap_counts_positions_and_open_buys(rm, db):
+    held = own(db, position("MSFT", qty=90, entry=100))  # $9,000 deployed by tradesys
     d = rm.evaluate(intent(qty=11), account(cash=50_000), held, [], STOCK, OPEN)  # +$1,100 -> $10,100 > cap
     assert not d.allowed and any("capital_cap" in r for r in d.reasons)
     assert rm.evaluate(intent(qty=10), account(cash=50_000), held, [], STOCK, OPEN).allowed
     pending = [OrderSnapshot("o1", "c", "TSLA", "buy", 5, 0, None, "limit", "new", limit_price=200)]  # $1,000 pending
     d = rm.evaluate(intent(qty=1), account(cash=50_000), held, pending, STOCK, OPEN)
     assert not d.allowed and any("capital_cap" in r for r in d.reasons)
+    # a holding made outside tradesys does not eat into the cap
+    outside = [position("NVDA", qty=10, entry=950)]
+    assert rm.evaluate(intent(qty=40), account(cash=50_000), outside, [], STOCK, OPEN).allowed
 
 
 def test_no_margin_uses_cash_not_buying_power(rm):
@@ -149,7 +160,7 @@ def test_runaway_guards_pdt_and_market_hours(rm, db):
                        crypto, closed).allowed
     d = rm.evaluate(intent(), account(equity=9_000, daytrade_count=3), [], [], STOCK, OPEN)
     assert not d.allowed and any("pdt_guard" in r for r in d.reasons)
-    held = [position(f"S{i}", qty=1, entry=1.0) for i in range(10)]
+    held = own(db, *[position(f"S{i}", qty=1, entry=1.0) for i in range(10)])
     d = rm.evaluate(intent(), account(), held, [], STOCK, OPEN)
     assert not d.allowed and any("max_positions" in r for r in d.reasons)
     for i in range(40):
@@ -166,7 +177,10 @@ def test_loss_limits_trigger_halts(settings, db):
     # realised -150 today plus -60 unrealised intraday -> -210 <= -200 daily limit
     db.insert_trade(source_id="s", symbol="AAPL", mode="paper", qty=1, entry_price=100, status="closed",
                     entry_time=now, exit_time=now, exit_price=0, pnl=-150.0)
-    fired = rm.check_loss_limits(account(), [position(price=94, intraday=-60)], now)
+    held = own(db, position(price=94, intraday=-60))
+    # an outside holding's loss is ignored
+    assert rm.check_loss_limits(account(), [position("NVDA", price=900, entry=950, intraday=-500)], now) == []
+    fired = rm.check_loss_limits(account(), held, now)
     assert fired == ["daily"] and rm.is_daily_halted()
     assert notifier.sent[-1][0] == "HALT_DAILY"
     # weekly: another -300 realised earlier this week -> total -510 <= -500
@@ -175,7 +189,7 @@ def test_loss_limits_trigger_halts(settings, db):
         monday = now  # Monday: same day counts
     db.insert_trade(source_id="s", symbol="AAPL", mode="paper", qty=1, entry_price=100, status="closed",
                     entry_time=monday, exit_time=monday, exit_price=0, pnl=-300.0)
-    fired = rm.check_loss_limits(account(), [position(price=94, intraday=-60)], now)
+    fired = rm.check_loss_limits(account(), held, now)
     assert "weekly" in fired and rm.is_weekly_halted()
     assert notifier.sent[-1][0] == "HALT_WEEKLY"
     # live-mode trades are not mixed into paper-mode P&L

@@ -99,10 +99,14 @@ class Notifier:
         msg["From"] = s.smtp_user
         msg["To"] = s.alert_email_to
         msg.set_content(body)
+        if s.smtp_port == 465:
+            with smtplib.SMTP_SSL(s.smtp_host, s.smtp_port, timeout=20) as smtp:
+                smtp.login(s.smtp_user, s.smtp_password)
+                smtp.send_message(msg)
+            return
         with smtplib.SMTP(s.smtp_host, s.smtp_port, timeout=20) as smtp:
             smtp.ehlo()
-            if s.smtp_port != 465:
-                smtp.starttls()
+            smtp.starttls()
             smtp.login(s.smtp_user, s.smtp_password)
             smtp.send_message(msg)
 

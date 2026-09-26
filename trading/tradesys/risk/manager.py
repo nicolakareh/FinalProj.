@@ -182,6 +182,25 @@ class RiskManager:
         self.db.set_state(self.K_ARMED, None)
         log.warning("live orders disarmed")
 
+    # ------------------------------------------------------------ positions
+    def system_symbols(self) -> set[str]:
+        """Symbols with an open or pending tradesys trade in the current mode."""
+        return {t["symbol"] for t in self.db.open_trades(mode=self.settings.mode)}
+
+    def system_positions(self, positions: Iterable[PositionSnapshot]) -> list[PositionSnapshot]:
+        """Broker positions that tradesys opened. Holdings you keep in the same account outside
+        tradesys are not counted against the cap or the loss limits, and are never sold."""
+        ours = self.system_symbols()
+        return [p for p in positions if p.symbol in ours and p.qty > 0]
+
+    def deployed_notional(self, positions: Iterable[PositionSnapshot], open_orders: Iterable[OrderSnapshot],
+                          reference_price: float | None = None) -> float:
+        deployed = sum(float(p.cost_basis) for p in self.system_positions(positions))
+        for o in open_orders:
+            if o.side == "buy" and o.is_open:
+                deployed += o.remaining_qty * float(o.limit_price or o.stop_price or reference_price or 0.0)
+        return deployed
+
     # ------------------------------------------------------------ evaluation
     def evaluate(self, intent: OrderIntent, account: AccountSnapshot, positions: Iterable[PositionSnapshot],
                  open_orders: Iterable[OrderSnapshot], asset: AssetInfo | None = None,
@@ -227,17 +246,14 @@ class RiskManager:
                 max_risk = s.total_capital_cap * s.max_risk_per_trade_pct / 100.0
                 check("risk_per_trade", risk_dollars <= max_risk + 1e-6,
                       f"risk ${risk_dollars:,.2f} exceeds {s.max_risk_per_trade_pct}% of capital (${max_risk:,.2f})")
-            deployed = sum(float(p.cost_basis) for p in positions if p.qty > 0)
-            pending_buys = sum(o.remaining_qty * float(o.limit_price or o.stop_price or intent.reference_price)
-                               for o in open_orders if o.side == "buy" and o.is_open and o.symbol != intent.symbol)
-            pending_buys += sum(o.remaining_qty * float(o.limit_price or intent.reference_price)
-                                for o in open_orders if o.side == "buy" and o.is_open and o.symbol == intent.symbol)
-            check("capital_cap", deployed + pending_buys + intent.notional <= s.total_capital_cap + 1e-6,
-                  f"deployed ${deployed + pending_buys:,.2f} + order ${intent.notional:,.2f} exceeds cap ${s.total_capital_cap:,.2f}")
+            deployed = self.deployed_notional(positions, open_orders, intent.reference_price)
+            check("capital_cap", deployed + intent.notional <= s.total_capital_cap + 1e-6,
+                  f"deployed ${deployed:,.2f} + order ${intent.notional:,.2f} exceeds cap ${s.total_capital_cap:,.2f}")
             check("no_margin", intent.notional <= account.spendable_cash + 1e-6,
                   f"order ${intent.notional:,.2f} exceeds settled cash ${account.spendable_cash:,.2f} (no margin)")
+            ours = {p.symbol for p in self.system_positions(positions)}
             open_buy_symbols = {o.symbol for o in open_orders if o.side == "buy" and o.is_open}
-            check("max_positions", len(held) + len(open_buy_symbols - set(held)) < s.max_open_positions,
+            check("max_positions", len(ours | open_buy_symbols) < s.max_open_positions,
                   f"already at MAX_OPEN_POSITIONS={s.max_open_positions}")
             day_start = to_iso(datetime.combine(trading_date(now), datetime.min.time()).replace(tzinfo=now.tzinfo)) or ""
             orders_today = self.db.count_orders_since(day_start)
@@ -278,7 +294,7 @@ class RiskManager:
     def pnl_snapshot(self, account: AccountSnapshot, positions: Iterable[PositionSnapshot],
                      now: datetime | None = None) -> PnLSnapshot:
         now = now or self.clock()
-        positions = list(positions)
+        positions = self.system_positions(positions)
         modes = (self.settings.mode,)
         realized_today, fees_today = self.db.realized_pnl_since(self._day_start_iso(now), modes)
         realized_week, fees_week = self.db.realized_pnl_since(self._week_start_iso(now), modes)
