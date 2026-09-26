@@ -1,0 +1,16 @@
+# Strategy assignments. Each entry becomes a signal source named strategy:<name>.
+# A strategy places real orders only after `tradesys backtest <name>` and
+# `tradesys approve strategy:<name> --backtest-id <id>`.
+strategies:
+  - name: sma_crossover
+    symbols: [SPY, AAPL]
+    timeframe: 1Day
+    params: {fast: 20, slow: 50, atr_period: 14, atr_mult: 2.0, target_r: 3.0}
+  - name: rsi_reversion
+    symbols: [BTC/USD, ETH/USD]
+    timeframe: 1Hour
+    params: {rsi_period: 14, oversold: 30, exit_rsi: 55, trend_sma: 200, atr_period: 14, atr_mult: 2.0, target_r: 2.0}
+  - name: breakout_volume
+    symbols: [MSFT]
+    timeframe: 1Day
+    params: {lookback: 20, volume_window: 20, volume_ratio: 1.8, atr_period: 14, atr_mult: 2.5, target_r: 2.5}

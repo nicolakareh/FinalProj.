@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tradesys"
+version = "0.1.0"
+description = "Alpaca live/paper trading system with hard, code-enforced risk rules"
+requires-python = ">=3.11"
+dependencies = [
+    "alpaca-py>=0.40",
+    "pandas>=2.2",
+    "numpy>=1.26",
+    "python-dotenv>=1.0",
+    "feedparser>=6.0",
+    "vaderSentiment>=3.3",
+    "discord.py>=2.3",
+    "pyyaml>=6.0",
+    "requests>=2.31",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "pytest-asyncio>=0.23"]
+
+[project.scripts]
+tradesys = "tradesys.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["tradesys*"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+filterwarnings = ["ignore::DeprecationWarning"]
