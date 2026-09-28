@@ -145,8 +145,8 @@
           if (!res.ok) throw new Error('Request failed');
           status.textContent = 'Thanks for submitting! We will be in touch shortly.'; form.reset();
         } else {
-          const subject = encodeURIComponent(`Project enquiry from ${data.firstName || ''} ${data.lastName || ''}`.trim());
-          const body = encodeURIComponent(`${data.message || ''}\n\n— ${data.firstName || ''} ${data.lastName || ''}\n${data.email || ''}`);
+          const subject = encodeURIComponent(`Project enquiry${data.stage ? ` (${data.stage})` : ''} from ${data.firstName || ''} ${data.lastName || ''}`.trim());
+          const body = encodeURIComponent(`${data.message || ''}\n\n${data.stage ? `Project stage: ${data.stage}\n` : ''}— ${data.firstName || ''} ${data.lastName || ''}\n${data.email || ''}`);
           window.location.href = `mailto:info@bymainsail.com?subject=${subject}&body=${body}`;
           status.textContent = 'Opening your email client… If nothing happens, write to info@bymainsail.com.';
         }
@@ -169,6 +169,20 @@
     });
     window.addEventListener('pageshow', (e) => { if (e.persisted) { veil.classList.remove('is-out'); veil.classList.add('is-in'); } });
   }
+
+  /* ---------- Contact: project stage chips ---------- */
+  $$('.stage .chip input').forEach(inp => inp.addEventListener('change', () => {
+    $$('.stage .chip').forEach(c => c.classList.toggle('is-active', c.contains(inp)));
+  }));
+
+  /* ---------- News: filter headlines by sector ---------- */
+  const chips = $$('.chip[data-filter]'), newsItems = $$('.news__item'), empty = $('.news__empty');
+  chips.forEach(chip => chip.addEventListener('click', () => {
+    const f = chip.dataset.filter; let shown = 0;
+    chips.forEach(c => { const on = c === chip; c.classList.toggle('is-active', on); c.setAttribute('aria-pressed', String(on)); });
+    newsItems.forEach(it => { const show = f === 'all' || it.dataset.tags.split(' ').includes(f); it.hidden = !show; if (show) shown++; });
+    if (empty) empty.hidden = shown > 0;
+  }));
 
   $$('[data-year]').forEach(el => { el.textContent = new Date().getFullYear(); });
 })();

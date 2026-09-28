@@ -1,0 +1,43 @@
+name: Refresh industry news
+
+# Pulls fresh headlines into mainsail/assets/data/news.json, rebuilds the pages and commits.
+# The schedule only fires on the repository's default branch; pushes and manual runs work on any branch.
+on:
+  schedule:
+    - cron: '23 11 * * *'
+  workflow_dispatch:
+  push:
+    paths:
+      - 'mainsail/build/news.js'
+      - '.github/workflows/news.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: news-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Fetch headlines
+        run: node mainsail/build/news.js
+      - name: Rebuild pages
+        run: node mainsail/build/build.js
+      - name: Commit if anything changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add mainsail/assets/data/news.json mainsail/index.html mainsail/services
+          if git diff --cached --quiet; then echo "no changes"; exit 0; fi
+          git commit -m "Refresh industry news"
+          git pull --rebase origin "${{ github.ref_name }}"
+          git push origin "HEAD:${{ github.ref_name }}"

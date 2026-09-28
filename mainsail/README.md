@@ -8,7 +8,7 @@ mainsail/
   services/*.html            one page per service (5)
   assets/css/site.css        styles — design tokens at the top
   assets/js/site.js          behaviour (nav, reveals, count-up, hover images, form, transitions)
-  assets/fonts/              Geist, Geist Mono, Instrument Serif (Latin subsets)
+  assets/fonts/              Geist and Geist Mono (Latin subsets)
   assets/img/                responsive photography (avif / webp / jpg at 900 / 1800 / 2600 px) + favicon, OG card
   assets/video/              hero loop: hero.webm / hero.mp4 plus 720p phone versions (Higgsfield Kling, from the hero still)
   assets/img/src/            2400px source photos the variants are generated from
@@ -52,3 +52,18 @@ The loop only loads after the page has painted, never on reduced-motion or data-
 ## Contact form
 
 Out of the box, the form opens the visitor's mail client addressed to info@bymainsail.com. To receive submissions server-side instead, create a free endpoint at Formspree or Basin and put its URL in `formEndpoint` in `build/data.js`, then rebuild.
+
+## Industry news
+
+`build/news.js` fetches recent headlines from construction and healthcare trade feeds
+(Construction Dive, Building Design+Construction, Healthcare Design, plus Google News
+searches per sector) into `assets/data/news.json`, tagged by sector. `build/build.js`
+renders them in the "In the news" section with a sector filter; the section is skipped
+when the file is missing. The workflow in `.github/workflows/news.yml` refreshes the
+file daily, rebuilds the pages and commits, which redeploys the site. The daily schedule
+only fires on the repository's default branch; on other branches run it manually from
+the Actions tab. Every headline is attributed and links to the publisher's page.
+
+The contact form has an optional "Project stage" selector (the five phases named in the
+Owners Project Management description). The chosen stage is added to the enquiry's
+subject line, or sent as the `stage` field when a form endpoint is configured.

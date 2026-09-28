@@ -119,6 +119,10 @@ const home = {
   sectorsTitle: 'Complexity is our default.',
   approachTitle: 'Built on trust.',
   contactTitle: 'Tell us about your project.',
+  // The five phases named in the Owners Project Management description; used by the contact form's stage selector.
+  contactStages: ['Design', 'Budgeting', 'Permitting', 'Construction oversight', 'Final handover'],
+  newsTitle: 'In the news',
+  newsText: 'Headlines from the construction and healthcare press, refreshed daily and filtered by the sectors we serve.',
 };
 
 module.exports = { site, services, sectors, pillars, home };

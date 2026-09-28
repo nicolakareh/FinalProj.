@@ -49,7 +49,48 @@ ${jsonld ? `<script type="application/ld+json">${JSON.stringify(jsonld)}</script
 <a class="sr-only" href="#main">Skip to content</a>`;
 }
 
-const NAV = (homeUrl) => [['Services', `${homeUrl}#services`], ['Sectors', `${homeUrl}#sectors`], ['Approach', `${homeUrl}#approach`], ['Contact', `${homeUrl}#contact`]];
+/* Industry headlines, written by build/news.js (refreshed by the GitHub workflow). Optional: the section is skipped when absent. */
+let NEWS = null;
+try { NEWS = JSON.parse(fs.readFileSync(path.join(ROOT, 'assets', 'data', 'news.json'), 'utf8')); if (!NEWS.items || !NEWS.items.length) NEWS = null; } catch (e) { NEWS = null; }
+const NAV = (homeUrl) => [['Services', `${homeUrl}#services`], ['Sectors', `${homeUrl}#sectors`], ...(NEWS ? [['News', `${homeUrl}#news`]] : []), ['Approach', `${homeUrl}#approach`], ['Contact', `${homeUrl}#contact`]];
+const fmtDate = (iso) => new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
+
+/* Newest headlines overall, topped up so every sector filter has at least three items. */
+function newsSelection() {
+  const all = NEWS.items;
+  const chosen = all.slice(0, 12);
+  sectors.forEach(sec => {
+    let n = chosen.filter(it => it.tags.includes(sec.img)).length;
+    for (const it of all) { if (n >= 3) break; if (!chosen.includes(it) && it.tags.includes(sec.img)) { chosen.push(it); n++; } }
+  });
+  return chosen.sort((a, b) => new Date(b.date) - new Date(a.date));
+}
+
+function newsSection() {
+  if (!NEWS) return '';
+  const items = newsSelection();
+  const sources = [...new Set(items.map(it => it.source))];
+  return `<section class="section" id="news">
+<div class="wrap">
+<hr class="rule" data-draw>
+${secHead(esc(home.newsTitle), home.newsText)}
+<div class="chips" role="group" aria-label="Filter headlines by sector" data-reveal="fade">
+<button class="chip is-active" type="button" data-filter="all" aria-pressed="true">All</button>
+${sectors.map(sec => `<button class="chip" type="button" data-filter="${sec.img}" aria-pressed="false">${esc(sec.title)}</button>`).join('\n')}
+</div>
+<div class="news" data-reveal="fade">
+${items.map(it => `<a class="news__item" href="${esc(it.url)}" target="_blank" rel="noopener" data-tags="${esc(it.tags.join(' '))}">
+<span class="news__meta"><span>${esc(it.source)}</span><time datetime="${esc(it.date)}">${fmtDate(it.date)}</time></span>
+<span class="news__title">${esc(it.title)}</span>
+</a>`).join('\n')}
+</div>
+<p class="news__empty" hidden>No recent headlines in this sector.</p>
+<p class="news__note">Curated automatically from ${esc(sources.join(', '))}. Headlines open on the publisher's site. Updated ${fmtDate(NEWS.updated)}.</p>
+</div>
+</section>
+
+`;
+}
 
 function header(root, current) {
   const homeUrl = `${root}index.html`;
@@ -59,7 +100,6 @@ function header(root, current) {
 <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav" aria-label="Menu"><span></span></button>
 <nav class="nav" id="nav" aria-label="Primary">
 <div class="nav__links">${NAV(homeUrl).map(([t, h]) => `<a href="${h}"${current === 'services' && t === 'Services' ? ' aria-current="page"' : ''}>${t}</a>`).join('')}</div>
-<a class="btn btn--sm nav__cta" href="${homeUrl}#contact">Start a conversation ${ICON.arrow}</a>
 </nav>
 </div>
 </header>`;
@@ -150,12 +190,10 @@ ${services.map(s => `<a class="svc" href="services/${s.slug}.html" data-img="${s
 <span class="svc__n">${s.n}</span>
 <span><span class="svc__title">${esc(s.title)}</span><span class="svc__desc">${esc(s.short)}</span>
 <span class="svc__img">${img(s.img, s.title, { sizes: '(max-width: 900px) 100vw, 0px' }, root)}</span></span>
-<span class="svc__arrow">${ICON.arrowUp}</span>
 </a>`).join('\n')}
 </div>
 <div class="preview" aria-hidden="true" data-reveal="fade">
 ${services.map((s, i) => img(s.img, '', { sizes: '(max-width: 900px) 0px, 40vw', cls: i === 0 ? 'is-active' : '' }, root).replace('<picture', `<picture data-key="${s.img}"`)).join('\n')}
-<span class="preview__cap" data-cap>${esc(services[0].title)}</span>
 </div>
 </div>
 </div>
@@ -164,7 +202,7 @@ ${services.map((s, i) => img(s.img, '', { sizes: '(max-width: 900px) 0px, 40vw',
 <section class="statement">
 <div class="statement__media"><div data-parallax style="height:100%">${img('statement', 'Construction workers on scaffolding at dusk', {}, root)}</div></div>
 <div class="wrap">
-<h2 class="h2" data-reveal><span class="serif">${esc(home.statementTitle)}</span></h2>
+<h2 class="h2" data-reveal>${esc(home.statementTitle)}</h2>
 <div data-reveal style="--d:.2s"><a class="link link--fwd link--lg" href="#contact">${esc(home.statementCta)} ${ICON.arrow}</a></div>
 </div>
 </section>
@@ -182,7 +220,7 @@ ${sectors.map((s, i) => `<article class="sector" data-reveal style="--d:${0.08 *
 </div>
 </section>
 
-<section class="section" id="approach">
+${newsSection()}<section class="section" id="approach">
 <div class="wrap">
 <hr class="rule" data-draw>
 ${secHead(esc(home.approachTitle), '')}
@@ -192,16 +230,19 @@ ${pillars.map((p, i) => `<div class="pillar" data-reveal style="--d:${0.1 * i}s"
 </div>
 </section>
 
-<section class="section contact dark" id="contact">
+<section class="section contact" id="contact">
 <div class="wrap">
 <div class="contact__intro">
-<h2 class="h2" data-reveal><span class="serif">${esc(home.contactTitle)}</span></h2>
+<h2 class="h2" data-reveal>${esc(home.contactTitle)}</h2>
 <div data-reveal style="--d:.2s"><a class="link" href="mailto:${site.email}">${site.email} ${ICON.arrowUp}</a></div>
 </div>
 <form class="form" data-endpoint="${esc(site.formEndpoint)}" novalidate data-reveal style="--d:.2s">
 <div class="field"><label for="firstName">First name</label><input id="firstName" name="firstName" type="text" autocomplete="given-name" required></div>
 <div class="field"><label for="lastName">Last name</label><input id="lastName" name="lastName" type="text" autocomplete="family-name" required></div>
 <div class="field field--full"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" required></div>
+<fieldset class="field field--full stage"><legend>Project stage</legend>
+<div class="chips">${home.contactStages.map(st => `<label class="chip"><input type="radio" name="stage" value="${esc(st)}"><span>${esc(st)}</span></label>`).join('')}</div>
+</fieldset>
 <div class="field field--full"><label for="message">Message</label><textarea id="message" name="message" rows="4" required></textarea></div>
 <div class="hp" aria-hidden="true"><label>Leave this empty<input type="text" name="company" tabindex="-1" autocomplete="off"></label></div>
 <div class="form__foot"><button class="btn" type="submit">Send ${ICON.arrow}</button></div>
