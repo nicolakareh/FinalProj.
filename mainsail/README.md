@@ -56,8 +56,8 @@ Out of the box, the form opens the visitor's mail client addressed to info@bymai
 ## Industry news
 
 `build/news.js` fetches recent headlines from construction and healthcare trade feeds
-(Construction Dive, Building Design+Construction, Healthcare Design, plus Google News
-searches per sector) into `assets/data/news.json`, tagged by sector. `build/build.js`
+(Construction Dive, plus Google News searches per sector, including Boston and New England
+searches) into `assets/data/news.json`, tagged by sector. `build/build.js`
 renders them in the "In the news" section with a sector filter; the section is skipped
 when the file is missing. The workflow in `.github/workflows/news.yml` refreshes the
 file daily, rebuilds the pages and commits, which redeploys the site. The daily schedule

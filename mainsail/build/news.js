@@ -16,20 +16,21 @@ const gnews = (q) => `https://news.google.com/rss/search?q=${encodeURIComponent(
 /* Sector keys match the sector image keys in data.js: hospital, medical, pharma, education. */
 const FEEDS = [
   { url: 'https://www.constructiondive.com/feeds/news/', source: 'Construction Dive', tags: [] },
-  { url: 'https://www.bdcnetwork.com/rss.xml', source: 'Building Design+Construction', tags: [] },
-  { url: 'https://healthcaredesignmagazine.com/feed/', source: 'Healthcare Design', tags: ['hospital', 'medical'] },
   { url: gnews('hospital construction project'), google: true, tags: ['hospital'] },
+  { url: gnews('hospital OR "medical center" construction Boston OR Massachusetts'), google: true, tags: ['hospital'] },
   { url: gnews('medical office building OR outpatient center construction'), google: true, tags: ['medical'] },
   { url: gnews('pharmaceutical OR biotech manufacturing facility construction'), google: true, tags: ['pharma'] },
+  { url: gnews('"life sciences" OR biotech lab construction Massachusetts OR "New England"'), google: true, tags: ['pharma'] },
   { url: gnews('university campus construction project'), google: true, tags: ['education'] },
-  { url: gnews('"owner\'s project manager" OR "construction project management" Massachusetts'), google: true, tags: [] },
+  { url: gnews('university OR college campus construction Massachusetts OR "New England"'), google: true, tags: ['education'] },
+  { url: gnews('construction project management Massachusetts'), google: true, tags: [] },
 ];
 
 /* Keyword tagging for general feeds, so the sector filter has something to show. */
 const RULES = [
   ['hospital', /\b(hospitals?|health systems?|medical cent(er|re)s?|cancer cent(er|re)|children's)\b/i],
   ['medical', /\b(medical office|outpatient|ambulatory|clinics?|health ?care)\b/i],
-  ['pharma', /\b(pharma|pharmaceutical|biotech|life[- ]sciences?|laborator(y|ies)|lab space|cgmp|manufacturing facilit(y|ies))\b/i],
+  ['pharma', /\b(pharma|pharmaceutical|biotech|biopharma|life[- ]sciences?|laborator(y|ies)|lab space|cgmp)\b/i],
   ['education', /\b(universit(y|ies)|colleges?|campus|higher[- ]ed(ucation)?)\b/i],
 ];
 

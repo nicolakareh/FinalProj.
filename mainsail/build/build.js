@@ -55,10 +55,10 @@ try { NEWS = JSON.parse(fs.readFileSync(path.join(ROOT, 'assets', 'data', 'news.
 const NAV = (homeUrl) => [['Services', `${homeUrl}#services`], ['Sectors', `${homeUrl}#sectors`], ...(NEWS ? [['News', `${homeUrl}#news`]] : []), ['Approach', `${homeUrl}#approach`], ['Contact', `${homeUrl}#contact`]];
 const fmtDate = (iso) => new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
 
-/* Newest headlines overall, topped up so every sector filter has at least three items. */
+/* Newest sector-tagged headlines first, a few general ones, topped up so every sector filter has at least three items. */
 function newsSelection() {
   const all = NEWS.items;
-  const chosen = all.slice(0, 12);
+  const chosen = [...all.filter(it => it.tags.length).slice(0, 9), ...all.filter(it => !it.tags.length).slice(0, 3)];
   sectors.forEach(sec => {
     let n = chosen.filter(it => it.tags.includes(sec.img)).length;
     for (const it of all) { if (n >= 3) break; if (!chosen.includes(it) && it.tags.includes(sec.img)) { chosen.push(it); n++; } }
