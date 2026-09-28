@@ -62,7 +62,7 @@ renders them in the "In the news" section with a sector filter; the section is s
 when the file is missing. The workflow in `.github/workflows/news.yml` refreshes the
 file daily, rebuilds the pages and commits, which redeploys the site. The daily schedule
 only fires on the repository's default branch; on other branches run it manually from
-the Actions tab. Every headline is attributed and links to the publisher's page.
+the Actions tab. Social-media sources and crime, accident or legal-dispute stories are filtered out. Every headline is attributed and links to the publisher's page.
 
 The contact form has an optional "Project stage" selector (the five phases named in the
 Owners Project Management description). The chosen stage is added to the enquiry's

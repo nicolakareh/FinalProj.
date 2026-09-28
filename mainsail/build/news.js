@@ -34,6 +34,10 @@ const RULES = [
   ['education', /\b(universit(y|ies)|colleges?|campus|higher[- ]ed(ucation)?)\b/i],
 ];
 
+/* Keep the strip professional: no social-media sources, no crime, accident or legal-dispute stories. */
+const BLOCK_SOURCES = /\b(facebook|twitter|x\.com|instagram|tiktok|youtube|reddit|linkedin|threads\.net)\b/i;
+const BLOCK_TITLES = /\b(died|dies|dead|deaths?|killed|shot|shooting|crash|arrest(ed)?|charged|lawsuit|sued|police|fire chief|indicted|fraud|scandal)\b/i;
+
 const decode = (s) => String(s || '')
   .replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, '$1')
   .replace(/<[^>]+>/g, '')
@@ -54,6 +58,7 @@ function parse(xml, feed) {
     let source = feed.source || pick(b, 'source');
     if (feed.google && source) title = title.replace(new RegExp(`\\s+-\\s+${escRe(source)}\\s*$`), '');
     if (!title || !url) continue;
+    if (BLOCK_SOURCES.test(source) || BLOCK_SOURCES.test(url) || BLOCK_TITLES.test(title)) continue;
     const when = new Date(date);
     if (Number.isNaN(when.getTime())) continue;
     const tags = new Set(feed.tags);
