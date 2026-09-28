@@ -1,0 +1,81 @@
+{
+  "attendees": [
+    {"name": "Dana Whitfield", "company": "Harborline Project Management", "role": "OPM", "present": true},
+    {"name": "Tom Reilly", "company": "Town of Bramford", "role": "Owner – Facilities Director", "present": true},
+    {"name": "Chief Laura Benson", "company": "Bramford Fire Department", "role": "Owner – Fire Chief", "present": true},
+    {"name": "Maya Chen", "company": "Ridgeway Architects", "role": "Architect", "present": true},
+    {"name": "Sam Okafor", "company": "Ridgeway Architects", "role": "Architect", "present": false},
+    {"name": "Jorge Alvarez", "company": "Castellan Builders", "role": "GC – Project Manager", "present": true},
+    {"name": "Kelly Nguyen", "company": "Castellan Builders", "role": "GC – Superintendent", "present": true},
+    {"name": "Ravi Patel", "company": "NorthStar Cx", "role": "Commissioning Agent", "present": true}
+  ],
+  "sections": [
+    {"section_key": "safety", "bullets": [
+      "GC reported no incidents. A crane was on site 09/10 for the CMU block delivery; the pre-lift meeting was held with no issues.",
+      "Toolbox talk covered silica dust ahead of the existing bay slab demolition."
+    ]},
+    {"section_key": "schedule", "bullets": [
+      "OPM accepted the revised baseline schedule as of 09/14: steel delivery 10/19/2026 and substantial completion 03/15/2027 (Item 1.01 closed).",
+      "The C-line footing pour has moved to the week of 09/21 pending the RFI 007 response. GC stated the week is absorbed by float ahead of the 10/19 steel delivery and does not affect the completion date.",
+      "Existing bay slab demolition starts 09/21, immediately after Engine 2 is relocated. Because the crew quarters share a wall with the bay, OPM requested a two-week look-ahead with the demolition sequence and a dust control plan (poly and negative air at the shared wall); GC to submit by 09/18 (Item 3.02)."
+    ]},
+    {"section_key": "budget_change_orders", "bullets": [
+      "Change Order 01, carrying PCO 001 and PCO 002, was issued by OPM on 09/10.",
+      "PCO 004 (ledge removal) was submitted 09/14 at $17,860 with signed T&M tickets and trucking slips, within the $18,500 not-to-exceed. OPM and Architect will review and OPM will issue a recommendation to Owner by 09/22 (Item 2.02).",
+      "Owner's contingency after PCO 004 is approximately $131,000 remaining of $165,000; OPM to confirm the exact figure."
+    ]},
+    {"section_key": "rfis_submittals", "bullets": [
+      "RFI 007 (footing elevation at gridline C) was due 09/11 and is past due. Architect reported the response is drafted and awaiting the structural engineer's stamp; to be issued to GC by 09/17 (Item 1.02).",
+      "RFI 008 (roof drain routing at the addition) was received 09/14; Architect will respond within ten days. Not critical.",
+      "Generator resubmittal No. 2 was returned 09/14 'Approved as Noted', with comments on the battery charger and remote annunciator location; GC will release the generator order this week (Item 2.03 closed)."
+    ]},
+    {"section_key": "design", "bullets": [
+      "GC expects ASI 03 pricing to be under $2,000 and will submit it next week."
+    ]},
+    {"section_key": "construction_progress", "bullets": [
+      "Underground work is complete except the water service. Elevator shaft CMU is at the second lift. Hollow metal frames are on site.",
+      "Two-week look-ahead: C-line footings, third lift of CMU, existing bay slab demolition, and start of underslab electrical in the addition."
+    ]},
+    {"section_key": "permitting_inspections", "bullets": [
+      "The DPW water tap (Item 1.05) remains unscheduled despite Owner's follow-up and is now holding underground backfill. OPM will call the DPW Director by 09/17 and copy the Town Administrator (Item 3.01).",
+      "The Building Inspector has been notified for the C-line footing inspection the week of 09/21.",
+      "The Fire Prevention Officer signed off on the sprinkler shop drawings last week."
+    ]},
+    {"section_key": "owner_items", "bullets": [
+      "Chief Benson selected Option B, harbor gray with safety yellow striping, for the apparatus bay (Item 1.06 closed). Physical samples were delivered 09/10 (Item 2.01 closed).",
+      "Engine 2 moves to Station 2 on 09/19 as planned (Item 2.04).",
+      "Day room furniture is carried in the FF&E allowance. Owner to confirm the allowance amount with the Town Accountant by 09/29 so furniture selections can begin with the Architect (Item 3.03)."
+    ]},
+    {"section_key": "commissioning_closeout", "bullets": [
+      "The NorthStar Cx contract was executed 09/14 (Item 1.07 closed); R. Patel will attend OAC meetings going forward.",
+      "NorthStar will issue the commissioning plan and the list of submittals requiring Cx review by 10/02; the generator, switchgear and RTU submittals are the priority (Item 3.04)."
+    ]}
+  ],
+  "decisions": [
+    "Revised baseline schedule accepted by OPM as of 09/14/2026: steel delivery 10/19/2026, substantial completion 03/15/2027.",
+    "C-line footing pour moved to the week of 09/21/2026 pending the RFI 007 response."
+  ],
+  "prior_item_updates": [
+    {"item_number": "1.01", "status": "closed", "note": "Baseline accepted 09/14 with OPM comments incorporated; steel 10/19/2026, substantial completion 03/15/2027.", "new_due_date": null, "new_responsible": null},
+    {"item_number": "1.02", "status": "open", "note": "Past due. Response drafted and awaiting the structural engineer's stamp; Architect to issue by 09/17. C-line pour moved to the week of 09/21 as a result.", "new_due_date": "2026-09-17", "new_responsible": null},
+    {"item_number": "1.05", "status": "open", "note": "DPW has still not scheduled the tap; now holding underground backfill. OPM escalating to the DPW Director (see Item 3.01). Remains open until the tap is scheduled.", "new_due_date": null, "new_responsible": null},
+    {"item_number": "1.06", "status": "closed", "note": "Chief selected Option B, harbor gray with safety yellow striping.", "new_due_date": null, "new_responsible": null},
+    {"item_number": "1.07", "status": "closed", "note": "Contract executed 09/14; NorthStar Cx (R. Patel) joining OAC meetings.", "new_due_date": null, "new_responsible": null},
+    {"item_number": "2.01", "status": "closed", "note": "Samples delivered to Station 1 on 09/10.", "new_due_date": null, "new_responsible": null},
+    {"item_number": "2.02", "status": "open", "note": "PCO 004 submitted 09/14 at $17,860 with signed tickets and trucking slips. OPM and Architect reviewing; recommendation to Owner by 09/22.", "new_due_date": "2026-09-22", "new_responsible": "OPM – D. Whitfield"},
+    {"item_number": "2.03", "status": "closed", "note": "Returned 09/14 'Approved as Noted' (battery charger and remote annunciator comments); GC releasing the order.", "new_due_date": null, "new_responsible": null},
+    {"item_number": "2.04", "status": "open", "note": "On track; Engine 2 moves to Station 2 on 09/19.", "new_due_date": null, "new_responsible": null}
+  ],
+  "new_items": [
+    {"description": "Call the DPW Director, copying the Town Administrator, to schedule the Hollis Street water tap.", "responsible": "OPM – D. Whitfield", "due_date": "2026-09-17", "section_key": "permitting_inspections", "priority": "high", "note": "Tap is holding underground backfill; GC request submitted 09/03 remains unscheduled."},
+    {"description": "Submit a two-week look-ahead showing the existing bay slab demolition sequence and a dust control plan for the shared wall with the crew quarters.", "responsible": "GC – K. Nguyen", "due_date": "2026-09-18", "section_key": "schedule", "priority": "high", "note": "GC will install poly and negative air on the shared wall."},
+    {"description": "Confirm the FF&E allowance amount and the day room furniture budget with the Town Accountant.", "responsible": "Owner – T. Reilly", "due_date": "2026-09-29", "section_key": "owner_items", "priority": "normal", "note": "Needed before furniture selections start with the Architect."},
+    {"description": "Issue the commissioning plan and the list of submittals requiring Cx review.", "responsible": "NorthStar Cx – R. Patel", "due_date": "2026-10-02", "section_key": "commissioning_closeout", "priority": "normal", "note": "Generator, switchgear and RTU submittals are the priority."}
+  ],
+  "next_meeting": {"date": "2026-09-22", "time": "9:00 AM", "location": "Job trailer, Station 1"},
+  "review_flags": [
+    "PCO 004 amount ($17,860) was read from the submission; confirm against the signed tickets before issuing.",
+    "Item 1.05 (DPW water tap) is past due with no new date; the escalation is captured as Item 3.01.",
+    "Contingency balance (~$131,000 of $165,000) was stated as approximate; insert the exact figure."
+  ]
+}

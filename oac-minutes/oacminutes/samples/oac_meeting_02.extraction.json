@@ -1,0 +1,73 @@
+{
+  "attendees": [
+    {"name": "Dana Whitfield", "company": "Harborline Project Management", "role": "OPM", "present": true},
+    {"name": "Tom Reilly", "company": "Town of Bramford", "role": "Owner – Facilities Director", "present": true},
+    {"name": "Chief Laura Benson", "company": "Bramford Fire Department", "role": "Owner – Fire Chief", "present": true},
+    {"name": "Maya Chen", "company": "Ridgeway Architects", "role": "Architect", "present": false},
+    {"name": "Sam Okafor", "company": "Ridgeway Architects", "role": "Architect", "present": true},
+    {"name": "Jorge Alvarez", "company": "Castellan Builders", "role": "GC – Project Manager", "present": true},
+    {"name": "Kelly Nguyen", "company": "Castellan Builders", "role": "GC – Superintendent", "present": true}
+  ],
+  "sections": [
+    {"section_key": "safety", "bullets": [
+      "GC reported no incidents. A plumbing subcontractor employee arrived without a hard hat on 09/03 and was removed from the site until properly equipped.",
+      "Toolbox talk this week covered excavation and trenching."
+    ]},
+    {"section_key": "schedule", "bullets": [
+      "GC submitted the revised baseline schedule on 09/04. It shows steel delivery 10/19 and recovers one week by moving the existing bay interior rough-in ahead of the addition; net one-week slip on the addition with no change to substantial completion of 03/15/2027. OPM to return comments by 09/11, after which the schedule will be accepted as the baseline (Item 1.01)."
+    ]},
+    {"section_key": "budget_change_orders", "bullets": [
+      "PCO 002, temporary generator connection to energize the addition ahead of the permanent switchgear, was recommended by OPM and approved by Owner at $6,240.",
+      "PCO 001 will be carried on Change Order 01, to be issued by OPM this week.",
+      "Ledge removal at gridline C was completed 09/04: three days of hoe-ram work and approximately fourteen loads of trucking; all T&M tickets signed by the OPM's field representative. GC to submit PCO 004 with signed tickets and quantities by 09/15 (Item 2.02)."
+    ]},
+    {"section_key": "rfis_submittals", "bullets": [
+      "Switchgear vendor letter received 09/04 committing to a ship date of 02/12/2027 (22 weeks). GC will forward the letter to OPM. Because the date is tight against substantial completion, GC proposed the temporary generator connection covered under PCO 002 (Item 1.03 closed).",
+      "Generator resubmittal No. 2 is with Ridgeway's electrical engineer; Architect to return it by 09/14 (Item 2.03).",
+      "Hollow metal doors and frames submittal will be issued this week; GC reported nothing else outstanding."
+    ]},
+    {"section_key": "design", "bullets": [
+      "ASI 03 (kitchen casework revisions) was issued 09/05 (Item 1.04 closed). GC will price it and expects any cost to be minor."
+    ]},
+    {"section_key": "construction_progress", "bullets": [
+      "Mezzanine abatement clearance was received 09/02 and mezzanine demolition is complete.",
+      "Underground plumbing is complete except the water service, which depends on the DPW tap.",
+      "C-line footings are formed and ready, held for the RFI 007 response and final ledge cleanup. Elevator shaft CMU started 09/07.",
+      "Two-week look-ahead: C-line footings upon receipt of RFI 007, CMU to the second lift, and start of existing bay slab demolition on 09/21 provided Engine 2 has been relocated."
+    ]},
+    {"section_key": "permitting_inspections", "bullets": [
+      "Water tap request was submitted to DPW on 09/03 and acknowledged, but no date has been scheduled. GC needs the tap by 09/11 to avoid holding up underground backfill; Owner (T. Reilly) will call the DPW Director (Item 1.05).",
+      "The Building Inspector requires 48 hours' notice for the C-line footing inspection; GC will coordinate with the RFI timing."
+    ]},
+    {"section_key": "owner_items", "bullets": [
+      "Chief Benson reviewed the three paint boards with the shift captains, who favor Option B (gray with yellow striping). Chief requested physical samples on the wall before signing off; Ridgeway to deliver samples for Options A, B and C to Station 1 by 09/11 (Item 2.01). Chief's selection remains due 09/15 (Item 1.06).",
+      "Chief confirmed mutual aid coverage from Hanley and Westbrook. Engine 2 will move to Station 2 on 09/19, clearing the existing bay for slab demolition on 09/21 (Item 2.04).",
+      "The Select Board has requested a project update on 10/06; OPM and Owner will coordinate separately."
+    ]},
+    {"section_key": "commissioning_closeout", "bullets": [
+      "Town Counsel returned the NorthStar Cx contract with two minor edits; OPM expects signatures this week and still targets execution by 09/18 (Item 1.07)."
+    ]}
+  ],
+  "decisions": [
+    "Owner approved PCO 002, temporary generator connection, at $6,240."
+  ],
+  "prior_item_updates": [
+    {"item_number": "1.01", "status": "open", "note": "Revised baseline received 09/04 showing 10/19 steel delivery and one week of recovery through interior re-sequencing; substantial completion unchanged. OPM to return comments by 09/11.", "new_due_date": "2026-09-11", "new_responsible": null},
+    {"item_number": "1.02", "status": "not_discussed", "note": "", "new_due_date": null, "new_responsible": null},
+    {"item_number": "1.03", "status": "closed", "note": "Vendor letter received 09/04: ship date 02/12/2027 (22 weeks). Temporary generator connection approved under PCO 002 to mitigate.", "new_due_date": null, "new_responsible": null},
+    {"item_number": "1.04", "status": "closed", "note": "ASI 03 issued 09/05.", "new_due_date": null, "new_responsible": null},
+    {"item_number": "1.05", "status": "open", "note": "Request submitted to DPW 09/03 and acknowledged; no date scheduled. Owner (T. Reilly) calling the DPW Director; tap needed by 09/11 to avoid holding backfill.", "new_due_date": "2026-09-11", "new_responsible": null},
+    {"item_number": "1.06", "status": "open", "note": "Captains favor Option B; Chief will decide after physical samples are on the wall (see Item 2.01).", "new_due_date": null, "new_responsible": null},
+    {"item_number": "1.07", "status": "open", "note": "Contract returned by Town Counsel with two minor edits; signatures expected this week.", "new_due_date": null, "new_responsible": null}
+  ],
+  "new_items": [
+    {"description": "Deliver physical paint samples for Options A, B and C to Station 1 for the Chief's review.", "responsible": "Architect – S. Okafor", "due_date": "2026-09-11", "section_key": "owner_items", "priority": "normal", "note": "Painter's representative to deliver samples."},
+    {"description": "Submit PCO 004 for ledge removal at gridline C with signed T&M tickets and quantities.", "responsible": "GC – J. Alvarez", "due_date": "2026-09-15", "section_key": "budget_change_orders", "priority": "normal", "note": "Ledge removal completed 09/04; not-to-exceed authorization is $18,500."},
+    {"description": "Return generator resubmittal No. 2 with review comments.", "responsible": "Architect – S. Okafor", "due_date": "2026-09-14", "section_key": "rfis_submittals", "priority": "normal", "note": ""},
+    {"description": "Relocate Engine 2 to Station 2 ahead of existing bay slab demolition.", "responsible": "Owner – Chief L. Benson", "due_date": "2026-09-21", "section_key": "owner_items", "priority": "high", "note": "Mutual aid confirmed with Hanley and Westbrook; move planned for 09/19."}
+  ],
+  "next_meeting": {"date": "2026-09-15", "time": "9:00 AM", "location": "Job trailer, Station 1"},
+  "review_flags": [
+    "RFI 007 (Item 1.02, due 09/11) was not raised at this meeting; the Architect was not present."
+  ]
+}

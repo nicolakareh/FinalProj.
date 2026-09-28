@@ -1,0 +1,66 @@
+{
+  "attendees": [
+    {"name": "Dana Whitfield", "company": "Harborline Project Management", "role": "OPM", "present": true},
+    {"name": "Tom Reilly", "company": "Town of Bramford", "role": "Owner – Facilities Director", "present": true},
+    {"name": "Chief Laura Benson", "company": "Bramford Fire Department", "role": "Owner – Fire Chief", "present": true},
+    {"name": "Maya Chen", "company": "Ridgeway Architects", "role": "Architect", "present": true},
+    {"name": "Sam Okafor", "company": "Ridgeway Architects", "role": "Architect", "present": false},
+    {"name": "Jorge Alvarez", "company": "Castellan Builders", "role": "GC – Project Manager", "present": true},
+    {"name": "Kelly Nguyen", "company": "Castellan Builders", "role": "GC – Superintendent", "present": true}
+  ],
+  "sections": [
+    {"section_key": "safety", "bullets": [
+      "GC reported no incidents or near misses; fall protection toolbox talk held 08/27.",
+      "The site fence along Hollis Street was pushed in by a delivery truck on 08/28 and repaired the same day. GC will station a flagger for any Hollis Street delivery exceeding thirty minutes because apparatus responds from that side."
+    ]},
+    {"section_key": "schedule", "bullets": [
+      "GC reported Merrimack Steel has moved structural steel delivery from 10/05 to 10/19, a two-week slip on the addition. GC expects to recover part of the slip by re-sequencing interior work in the existing bay and will submit a revised baseline schedule by 09/04 (Item 1.01).",
+      "Owner reiterated that contractual substantial completion of 03/15/2027 stands. GC is not requesting additional time at this point."
+    ]},
+    {"section_key": "budget_change_orders", "bullets": [
+      "PCO 001, additional asbestos abatement at the mezzanine, is approved at $11,400 and will be carried on Change Order 01.",
+      "Ledge was encountered on the gridline C footing line approximately two feet above the boring elevations. GC estimates three days of hoe-ram work and trucking, rough order of magnitude $15,000–$18,000; a PCO with T&M tickets will follow."
+    ]},
+    {"section_key": "rfis_submittals", "bullets": [
+      "RFI 007 (footing elevation at gridline C) is with Ridgeway's structural engineer. The response is required before the C-line footing pour, planned for the week of 09/14; Ridgeway to respond by 09/11 (Item 1.02).",
+      "The switchgear submittal is approved. The vendor is quoting a 20–24 week lead time; GC to provide a vendor letter with a firm ship date by 09/08 (Item 1.03).",
+      "Generator resubmittal No. 2 was submitted 08/31. Architect will return it within ten working days per the specification."
+    ]},
+    {"section_key": "design", "bullets": [
+      "ASI 03 (kitchen casework revisions requested by the Fire Department: taller upper cabinets and a second sink) is in progress; Ridgeway to issue by 09/08 (Item 1.04)."
+    ]},
+    {"section_key": "construction_progress", "bullets": [
+      "Selective demolition in the existing building is complete except the mezzanine, which is pending abatement clearance expected 09/02.",
+      "Underground plumbing in the addition is approximately 70% complete. Footings at gridlines A and B are poured; gridline C is held for ledge removal.",
+      "Two-week look-ahead: complete underground plumbing, form and pour C-line footings pending RFI 007, start CMU at the elevator shaft."
+    ]},
+    {"section_key": "permitting_inspections", "bullets": [
+      "The Building Inspector passed the gridline A and B footing inspections.",
+      "The Hollis Street water tap must be performed by Town DPW. GC to submit a formal tap request to DPW this week and coordinate a date (Item 1.05); Owner will support scheduling once dates are provided."
+    ]},
+    {"section_key": "owner_items", "bullets": [
+      "Chief Benson will review the three apparatus bay paint options with the shift captains and make a selection by 09/15 (Item 1.06).",
+      "Engine 2 must be relocated before existing bay slab demolition, scheduled for the week of 09/21. Chief expects to house Engine 2 at Station 2 pending confirmation of mutual aid coverage; to be confirmed at the next meeting."
+    ]},
+    {"section_key": "commissioning_closeout", "bullets": [
+      "The NorthStar Cx commissioning agent contract is with Town Counsel. OPM to have it executed by 09/18 so that mechanical submittal reviews can begin (Item 1.07)."
+    ]}
+  ],
+  "decisions": [
+    "Owner authorized ledge removal at gridline C on a time-and-materials basis, not to exceed $18,500, funded from Owner's contingency and processed as a change order; T&M tickets to be signed daily by the OPM's field representative."
+  ],
+  "prior_item_updates": [],
+  "new_items": [
+    {"description": "Submit revised baseline schedule reflecting the 10/19 steel delivery and the interior re-sequencing recovery.", "responsible": "GC – J. Alvarez", "due_date": "2026-09-04", "section_key": "schedule", "priority": "high", "note": "Owner requires a firm date for the bay returning to service; substantial completion 03/15/2027 stands."},
+    {"description": "Issue response to RFI 007, footing elevation at gridline C.", "responsible": "Architect – M. Chen", "due_date": "2026-09-11", "section_key": "rfis_submittals", "priority": "high", "note": "Needed before the C-line footing pour planned for the week of 09/14."},
+    {"description": "Provide switchgear vendor letter confirming lead time and firm ship date.", "responsible": "GC – J. Alvarez", "due_date": "2026-09-08", "section_key": "rfis_submittals", "priority": "normal", "note": "Vendor quoting 20–24 weeks; 24 weeks conflicts with substantial completion."},
+    {"description": "Issue ASI 03, kitchen casework revisions (taller upper cabinets and second sink).", "responsible": "Architect – M. Chen", "due_date": "2026-09-08", "section_key": "design", "priority": "normal", "note": ""},
+    {"description": "Submit formal water tap request to Town DPW for Hollis Street and coordinate the tap date.", "responsible": "GC – K. Nguyen", "due_date": "2026-09-04", "section_key": "permitting_inspections", "priority": "normal", "note": "DPW must perform the tap; GC has called twice without a date."},
+    {"description": "Select apparatus bay paint colors from the three options provided by the Architect.", "responsible": "Owner – Chief L. Benson", "due_date": "2026-09-15", "section_key": "owner_items", "priority": "normal", "note": "Chief to review with the shift captains."},
+    {"description": "Execute the NorthStar Cx commissioning agent contract.", "responsible": "OPM – D. Whitfield", "due_date": "2026-09-18", "section_key": "commissioning_closeout", "priority": "normal", "note": "Contract is with Town Counsel; needed so Cx can begin reviewing mechanical submittals."}
+  ],
+  "next_meeting": {"date": "2026-09-08", "time": "9:00 AM", "location": "Job trailer, Station 1"},
+  "review_flags": [
+    "Engine 2 relocation (target 09/21) was discussed but deliberately not made an action item pending the Chief's confirmation of mutual aid coverage."
+  ]
+}

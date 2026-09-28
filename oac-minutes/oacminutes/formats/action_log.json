@@ -1,0 +1,38 @@
+{
+  "name": "Compact action log",
+  "minutes_title": "Progress Meeting Minutes & Action Log",
+  "header_fields": [
+    {"key": "project_name", "label": "Project"},
+    {"key": "meeting_number", "label": "Meeting"},
+    {"key": "meeting_date", "label": "Date"},
+    {"key": "location", "label": "Location"},
+    {"key": "prepared_by", "label": "Minutes by"}
+  ],
+  "sections": [
+    {"key": "progress", "title": "Progress & Look-Ahead", "hint": "work completed, two-week look-ahead, manpower"},
+    {"key": "schedule", "title": "Schedule", "hint": "milestones, delays, recovery"},
+    {"key": "cost", "title": "Cost", "hint": "change orders, PCOs, allowances, pay applications"},
+    {"key": "coordination", "title": "Coordination & Design", "hint": "RFIs, submittals, design questions, inspections"},
+    {"key": "general", "title": "General", "hint": "safety, owner items, anything else"}
+  ],
+  "open_items_columns": [
+    {"key": "item_number", "label": "#", "width_in": 0.7},
+    {"key": "description", "label": "Action", "width_in": 3.2},
+    {"key": "responsible", "label": "Owner", "width_in": 1.3},
+    {"key": "due_date", "label": "Due", "width_in": 0.9},
+    {"key": "status", "label": "Status", "width_in": 0.9},
+    {"key": "last_update", "label": "Update", "width_in": 1.9}
+  ],
+  "numbering": {"style": "sequential", "separator": "", "item_pad": 3, "prefix": "A-"},
+  "status_labels": {"open": "Open", "on_hold": "Hold", "closed": "Done", "overdue": "LATE", "new": "New"},
+  "show_attendees_table": true,
+  "show_decisions": false,
+  "show_closed_items": true,
+  "show_item_history": false,
+  "not_discussed_text": "No update this meeting.",
+  "disclaimer": "Please report any corrections to these minutes within three (3) business days.",
+  "date_format": "%m/%d/%y",
+  "font_name": "Arial",
+  "font_size": 9,
+  "accent_color": "2E5E4E"
+}

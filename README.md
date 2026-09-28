@@ -60,3 +60,15 @@ Store facts on the site (addresses, phones, hours, partners, history) were compi
 pip install -r requirements.txt
 streamlit run KarehProgramFinal.py
 ```
+
+---
+
+## OAC Minutes (construction meeting minutes app)
+
+`oac-minutes/` is a separate Streamlit app that turns OAC meeting transcripts into issued minutes in a firm's format and keeps an open-items log that carries forward from meeting to meeting. See [`oac-minutes/README.md`](oac-minutes/README.md).
+
+```bash
+cd oac-minutes
+pip install -r requirements.txt
+streamlit run app.py
+```

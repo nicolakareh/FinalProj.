@@ -1,0 +1,10 @@
+streamlit>=1.40
+anthropic>=1.9
+pydantic>=2.5
+python-docx>=1.1
+openpyxl>=3.1
+pandas>=2.0
+pytest>=8.0
+
+# Optional: local speech-to-text for audio/video uploads (large download on first run)
+# faster-whisper>=1.0

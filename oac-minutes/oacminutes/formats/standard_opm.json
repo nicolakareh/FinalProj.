@@ -1,0 +1,50 @@
+{
+  "name": "Standard OPM minutes",
+  "minutes_title": "OAC Meeting Minutes",
+  "header_fields": [
+    {"key": "project_name", "label": "Project"},
+    {"key": "project_number", "label": "Project No."},
+    {"key": "meeting_number", "label": "Meeting No."},
+    {"key": "meeting_date", "label": "Date"},
+    {"key": "meeting_time", "label": "Time"},
+    {"key": "location", "label": "Location"},
+    {"key": "owner", "label": "Owner"},
+    {"key": "architect", "label": "Architect"},
+    {"key": "contractor", "label": "Contractor"},
+    {"key": "prepared_by", "label": "Prepared by"},
+    {"key": "distribution", "label": "Distribution"}
+  ],
+  "sections": [
+    {"key": "safety", "title": "Safety", "hint": "incidents, near misses, site safety concerns, toolbox talks"},
+    {"key": "schedule", "title": "Schedule", "hint": "baseline and look-ahead schedule, milestones, delays, weather days, recovery plans"},
+    {"key": "budget_change_orders", "title": "Budget, Change Orders & Requisitions", "hint": "PCOs, change orders, allowances, contingency, pay applications"},
+    {"key": "rfis_submittals", "title": "RFIs & Submittals", "hint": "open RFIs, submittal log status, shop drawings, long-lead procurement"},
+    {"key": "design", "title": "Design & Architect Items", "hint": "design clarifications, ASIs, bulletins, field observations by the architect"},
+    {"key": "construction_progress", "title": "Construction Progress", "hint": "work completed since last meeting and work planned for the next two weeks, by trade"},
+    {"key": "permitting_inspections", "title": "Permitting & Inspections", "hint": "building department, fire department, utility and third-party inspections"},
+    {"key": "owner_items", "title": "Owner Items", "hint": "owner decisions, furniture/fixtures/equipment, occupancy, phasing, communications with users"},
+    {"key": "commissioning_closeout", "title": "Commissioning & Closeout", "hint": "commissioning, training, O&M manuals, punch list, certificate of occupancy"},
+    {"key": "general", "title": "General", "hint": "anything that does not fit above"}
+  ],
+  "open_items_columns": [
+    {"key": "item_number", "label": "Item", "width_in": 0.6},
+    {"key": "description", "label": "Description", "width_in": 2.6},
+    {"key": "responsible", "label": "Responsible", "width_in": 1.2},
+    {"key": "date_raised", "label": "Raised", "width_in": 0.8},
+    {"key": "due_date", "label": "Due", "width_in": 0.8},
+    {"key": "status", "label": "Status", "width_in": 0.8},
+    {"key": "last_update", "label": "Latest update", "width_in": 1.9}
+  ],
+  "numbering": {"style": "meeting_item", "separator": ".", "item_pad": 2, "prefix": ""},
+  "status_labels": {"open": "Open", "on_hold": "On Hold", "closed": "Closed", "overdue": "OVERDUE", "new": "New"},
+  "show_attendees_table": true,
+  "show_decisions": true,
+  "show_closed_items": true,
+  "show_item_history": true,
+  "not_discussed_text": "Not discussed – carried forward.",
+  "disclaimer": "These minutes represent the author's understanding of the items discussed and decisions reached. Any corrections or additions must be submitted in writing within five (5) business days of receipt; otherwise the minutes will stand as the record of the meeting.",
+  "date_format": "%m/%d/%Y",
+  "font_name": "Calibri",
+  "font_size": 10,
+  "accent_color": "1F3864"
+}
