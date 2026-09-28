@@ -35,6 +35,15 @@ from oacminutes.samples import DEMO_MEETINGS, DEMO_PROJECT_NAME, load_demo_proje
 from oacminutes.storage import Store  # noqa: E402
 from oacminutes.transcription import TranscriptionUnavailable, available_provider, transcribe_audio  # noqa: E402
 
+# Hosted Streamlit (Community Cloud etc.) keeps configuration in st.secrets; mirror it into the
+# environment so the library code (which never imports streamlit) sees it.
+try:
+    for _key in ("ANTHROPIC_API_KEY", "OACMINUTES_EXTRACTOR", "OACMINUTES_MODEL", "OACMINUTES_DATA_DIR"):
+        if _key not in os.environ and _key in st.secrets:
+            os.environ[_key] = str(st.secrets[_key])
+except Exception:  # no secrets file locally; that's fine
+    pass
+
 DATA_DIR = Path(os.environ.get("OACMINUTES_DATA_DIR", ROOT / "data"))
 OUTPUT_DIR = DATA_DIR / "output"
 UPLOAD_DIR = DATA_DIR / "uploads"

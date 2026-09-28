@@ -1,5 +1,15 @@
+# Root requirements: covers both apps in this repo so cloud hosts that only read
+# the repo root (e.g. Streamlit Community Cloud) can run either one.
+
+# Farmers Markets Explorer (KarehProgramFinal.py)
 streamlit
 pandas
 numpy
 matplotlib
 pydeck
+
+# OAC Minutes (oac-minutes/app.py)
+anthropic>=1.9
+pydantic>=2.5
+python-docx>=1.1
+openpyxl>=3.1
