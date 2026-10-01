@@ -55,14 +55,28 @@ Out of the box, the form opens the visitor's mail client addressed to info@bymai
 
 ## Industry news
 
-`build/news.js` fetches recent headlines from construction and healthcare trade feeds
-(Construction Dive, plus Google News searches per sector, including Boston and New England
-searches) into `assets/data/news.json`, tagged by sector. `build/build.js`
-renders them in the "In the news" section with a sector filter; the section is skipped
-when the file is missing. The workflow in `.github/workflows/news.yml` refreshes the
-file daily, rebuilds the pages and commits, which redeploys the site. The daily schedule
-only fires on the repository's default branch; on other branches run it manually from
-the Actions tab. Social-media sources and crime, accident or legal-dispute stories are filtered out. Every headline is attributed and links to the publisher's page.
+The "In the news" section shows recent, attributed headlines with an "Our work" filter and one
+filter per sector. The fetcher is `build/lib/newsfetch.js`:
+
+- `CLIENTS` lists the organisations Mainsail is working with (currently Massachusetts General
+  Hospital and 42 North Dental). Each adds Google News searches whose results are tagged
+  "work", plus a title pattern so mentions in other feeds are tagged too. Add a line to track
+  another organisation.
+- `FEEDS` adds Construction Dive and Google News searches per sector, including Boston and
+  New England searches. Social-media sources and crime, accident or legal-dispute stories are
+  filtered out. Every headline links to the publisher's page.
+
+Two things keep it fresh:
+
+1. `build/news.js` writes `assets/data/news.json`, and `build/build.js` bakes those headlines
+   into `index.html` (the section is skipped when the file is missing). The workflow in
+   `.github/workflows/news.yml` runs this daily, rebuilds and commits. GitHub only runs the
+   daily schedule on the repository's default branch, so merge this branch into `main` (or run
+   the workflow manually from the Actions tab).
+2. `api/news.js` is a Vercel serverless endpoint (`/api/news`) that fetches the same feeds and
+   is cached at the edge for a day. The page refreshes its headlines from it on load, so a
+   Vercel deployment shows fresh news daily regardless of the workflow. Static hosts simply
+   keep the baked-in headlines.
 
 The contact form has an optional "Project stage" selector (the five phases named in the
 Owners Project Management description). The chosen stage is added to the enquiry's

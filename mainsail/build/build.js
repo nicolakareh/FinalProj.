@@ -55,27 +55,31 @@ try { NEWS = JSON.parse(fs.readFileSync(path.join(ROOT, 'assets', 'data', 'news.
 const NAV = (homeUrl) => [['Services', `${homeUrl}#services`], ['Sectors', `${homeUrl}#sectors`], ...(NEWS ? [['News', `${homeUrl}#news`]] : []), ['Approach', `${homeUrl}#approach`], ['Contact', `${homeUrl}#contact`]];
 const fmtDate = (iso) => new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
 
-/* Newest sector-tagged headlines first, a few general ones, topped up so every sector filter has at least three items. */
+/* Headlines about the organisations we work with first, then sector news, then a little general trade news;
+   topped up so every filter has at least three items. Mirrored in assets/js/site.js for the live refresh. */
 function newsSelection() {
   const all = NEWS.items;
-  const chosen = [...all.filter(it => it.tags.length).slice(0, 9), ...all.filter(it => !it.tags.length).slice(0, 3)];
-  sectors.forEach(sec => {
-    let n = chosen.filter(it => it.tags.includes(sec.img)).length;
-    for (const it of all) { if (n >= 3) break; if (!chosen.includes(it) && it.tags.includes(sec.img)) { chosen.push(it); n++; } }
+  const work = all.filter(it => it.tags.includes('work'));
+  const sector = all.filter(it => !it.tags.includes('work') && it.tags.length);
+  const general = all.filter(it => !it.tags.length);
+  const chosen = [...work.slice(0, 6), ...sector.slice(0, 6), ...general.slice(0, 2)];
+  [...sectors.map(sec => sec.img), 'work'].forEach(tag => {
+    let n = chosen.filter(it => it.tags.includes(tag)).length;
+    for (const it of all) { if (n >= 3) break; if (!chosen.includes(it) && it.tags.includes(tag)) { chosen.push(it); n++; } }
   });
-  return chosen.sort((a, b) => new Date(b.date) - new Date(a.date));
+  return chosen;
 }
 
 function newsSection() {
   if (!NEWS) return '';
   const items = newsSelection();
-  const sources = [...new Set(items.map(it => it.source))];
   return `<section class="section" id="news">
 <div class="wrap">
 <hr class="rule" data-draw>
 ${secHead(esc(home.newsTitle), home.newsText)}
 <div class="chips" role="group" aria-label="Filter headlines by sector" data-reveal="fade">
 <button class="chip is-active" type="button" data-filter="all" aria-pressed="true">All</button>
+${items.some(it => it.tags.includes('work')) ? '<button class="chip" type="button" data-filter="work" aria-pressed="false">Our work</button>' : ''}
 ${sectors.map(sec => `<button class="chip" type="button" data-filter="${sec.img}" aria-pressed="false">${esc(sec.title)}</button>`).join('\n')}
 </div>
 <div class="news" data-reveal="fade">
@@ -85,7 +89,7 @@ ${items.map(it => `<a class="news__item" href="${esc(it.url)}" target="_blank" r
 </a>`).join('\n')}
 </div>
 <p class="news__empty" hidden>No recent headlines in this sector.</p>
-<p class="news__note">Curated automatically from ${esc(sources.join(', '))}. Headlines open on the publisher's site. Updated ${fmtDate(NEWS.updated)}.</p>
+<p class="news__note">Curated automatically from the trade and local press. Headlines open on the publisher's site. Updated <span data-updated>${fmtDate(NEWS.updated)}</span>.</p>
 </div>
 </section>
 

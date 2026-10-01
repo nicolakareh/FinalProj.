@@ -9,6 +9,7 @@ on:
   push:
     paths:
       - 'mainsail/build/news.js'
+      - 'mainsail/build/lib/newsfetch.js'
       - '.github/workflows/news.yml'
 
 permissions:

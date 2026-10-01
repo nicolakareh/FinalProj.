@@ -175,14 +175,41 @@
     $$('.stage .chip').forEach(c => c.classList.toggle('is-active', c.contains(inp)));
   }));
 
-  /* ---------- News: filter headlines by sector ---------- */
-  const chips = $$('.chip[data-filter]'), newsItems = $$('.news__item'), empty = $('.news__empty');
-  chips.forEach(chip => chip.addEventListener('click', () => {
-    const f = chip.dataset.filter; let shown = 0;
-    chips.forEach(c => { const on = c === chip; c.classList.toggle('is-active', on); c.setAttribute('aria-pressed', String(on)); });
-    newsItems.forEach(it => { const show = f === 'all' || it.dataset.tags.split(' ').includes(f); it.hidden = !show; if (show) shown++; });
+  /* ---------- News: filter headlines by sector, refresh from the live endpoint when it exists ---------- */
+  const chips = $$('.chip[data-filter]'), grid = $('.news'), empty = $('.news__empty');
+  let filter = 'all';
+  const applyFilter = () => {
+    let shown = 0;
+    $$('.news__item', grid).forEach(it => { const show = filter === 'all' || it.dataset.tags.split(' ').includes(filter); it.hidden = !show; if (show) shown++; });
     if (empty) empty.hidden = shown > 0;
+  };
+  chips.forEach(chip => chip.addEventListener('click', () => {
+    filter = chip.dataset.filter;
+    chips.forEach(c => { const on = c === chip; c.classList.toggle('is-active', on); c.setAttribute('aria-pressed', String(on)); });
+    applyFilter();
   }));
+  if (grid && chips.length && location.protocol !== 'file:') {
+    const sectorKeys = chips.map(c => c.dataset.filter).filter(k => k !== 'all' && k !== 'work');
+    const escHtml = (t) => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    const fmt = (iso) => new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
+    // same selection as build/build.js: our work first, then sector news, then a little general trade news
+    const select = (all) => {
+      const has = (it, t) => it.tags.includes(t);
+      const work = all.filter(it => has(it, 'work')), sector = all.filter(it => !has(it, 'work') && it.tags.length), general = all.filter(it => !it.tags.length);
+      const chosen = [...work.slice(0, 6), ...sector.slice(0, 6), ...general.slice(0, 2)];
+      [...sectorKeys, 'work'].forEach(tag => { let n = chosen.filter(it => has(it, tag)).length; for (const it of all) { if (n >= 3) break; if (!chosen.includes(it) && has(it, tag)) { chosen.push(it); n++; } } });
+      return chosen;
+    };
+    fetch('api/news', { headers: { Accept: 'application/json' } })
+      .then(r => (r.ok ? r.json() : null))
+      .then(data => {
+        if (!data || !Array.isArray(data.items) || data.items.length < 6) return;
+        grid.innerHTML = select(data.items).map(it => `<a class="news__item" href="${escHtml(it.url)}" target="_blank" rel="noopener" data-tags="${escHtml(it.tags.join(' '))}"><span class="news__meta"><span>${escHtml(it.source)}</span><time datetime="${escHtml(it.date)}">${fmt(it.date)}</time></span><span class="news__title">${escHtml(it.title)}</span></a>`).join('');
+        const upd = $('[data-updated]'); if (upd && data.updated) upd.textContent = fmt(data.updated);
+        applyFilter();
+      })
+      .catch(() => {});
+  }
 
   $$('[data-year]').forEach(el => { el.textContent = new Date().getFullYear(); });
 })();
