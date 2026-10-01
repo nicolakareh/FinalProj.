@@ -99,3 +99,38 @@ def test_result_for_meeting_matches_history(demo):
     assert [i.item_number for i in r2.new_items] == ["2.01", "2.02", "2.03", "2.04"]
     r1 = result_for_meeting(store, firm, project, meetings[0])
     assert len(r1.items) == 7 and r1.closed_this_meeting == []
+
+
+def test_process_batch_orders_by_meeting_number(tmp_path):
+    from oacminutes.pipeline import BatchItem, process_batch
+    from oacminutes.samples import make_demo_firm, make_demo_project
+    store = Store(":memory:")
+    firm = store.save_firm(make_demo_firm())
+    project = store.save_project(make_demo_project(firm))
+    items = [
+        BatchItem(name="oac_meeting_02.txt", transcript=sample_transcript("oac_meeting_02.txt"), meeting_no=2, meeting_date=date(2026, 9, 8)),
+        BatchItem(name="oac_meeting_01.txt", transcript=sample_transcript("oac_meeting_01.txt"), meeting_no=1, meeting_date=date(2026, 9, 1)),
+    ]
+    seen = []
+    issued = process_batch(store, firm, project, items, extractor=MockExtractor(), output_dir=tmp_path, on_progress=lambda i: seen.append(i.meeting_no))
+    assert seen == [1, 2]
+    assert [i.meeting.meeting_no for i in issued] == [1, 2]
+    assert all(i.meeting.status == MeetingStatus.FINAL for i in issued)
+    assert len(store.list_items(project.id)) == 11
+    assert issued[1].flags == ["RFI 007 (Item 1.02, due 09/11) was not raised at this meeting; the Architect was not present."]
+
+
+def test_process_batch_stops_at_first_failure(tmp_path):
+    from oacminutes.extract import ExtractionError
+    from oacminutes.pipeline import BatchItem, process_batch
+    from oacminutes.samples import make_demo_firm, make_demo_project
+    store = Store(":memory:")
+    firm = store.save_firm(make_demo_firm())
+    project = store.save_project(make_demo_project(firm))
+    items = [
+        BatchItem(name="oac_meeting_01.txt", transcript=sample_transcript("oac_meeting_01.txt"), meeting_no=1, meeting_date=date(2026, 9, 1)),
+        BatchItem(name="unknown.txt", transcript="not a sample", meeting_no=2, meeting_date=date(2026, 9, 8)),
+    ]
+    with pytest.raises(ExtractionError):
+        process_batch(store, firm, project, items, extractor=MockExtractor(), output_dir=tmp_path)
+    assert [m.meeting_no for m in store.list_meetings(project.id, MeetingStatus.FINAL)] == [1]

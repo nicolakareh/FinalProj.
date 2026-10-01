@@ -10,7 +10,7 @@ from pathlib import Path
 from ..extract import Extractor, MockExtractor
 from ..formats import load_builtin_format
 from ..models import Firm, Meeting, Project
-from ..pipeline import finalize, generate_draft
+from ..pipeline import BatchItem, process_batch
 from ..storage import Store
 
 SAMPLES_DIR = Path(__file__).parent
@@ -70,18 +70,6 @@ def load_demo_project(store: Store, output_dir: str | Path, *, extractor: Extrac
     extractor = extractor or MockExtractor()
     firm = store.save_firm(make_demo_firm(firm_name))
     project = store.save_project(make_demo_project(firm))
-    meetings: list[Meeting] = []
-    for filename, meeting_no, meeting_date in DEMO_MEETINGS:
-        draft = generate_draft(
-            store, firm, project,
-            transcript=sample_transcript(filename),
-            extractor=extractor,
-            meeting_no=meeting_no,
-            meeting_date=meeting_date,
-            source_name=filename,
-            meeting_time="9:00 AM",
-            location="Job trailer, Station 1",
-        )
-        meeting, _ = finalize(store, firm, project, draft.meeting, output_dir)
-        meetings.append(meeting)
-    return firm, project, meetings
+    items = [BatchItem(name=filename, transcript=sample_transcript(filename), meeting_no=no, meeting_date=when) for filename, no, when in DEMO_MEETINGS]
+    issued = process_batch(store, firm, project, items, extractor=extractor, output_dir=output_dir, meeting_time="9:00 AM", location="Job trailer, Station 1")
+    return firm, project, [i.meeting for i in issued]

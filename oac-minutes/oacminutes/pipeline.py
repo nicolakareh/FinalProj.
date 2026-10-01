@@ -171,3 +171,49 @@ def result_for_meeting(store: Store, firm: Firm, project: Project, meeting: Meet
         meeting_date=meeting.meeting_date,
         numbering=firm.format.numbering,
     )
+
+
+# --------------------------------------------------------------------------
+# Batch: drop several transcripts, get every meeting issued in order.
+# --------------------------------------------------------------------------
+@dataclass
+class BatchItem:
+    name: str
+    transcript: str
+    meeting_no: int
+    meeting_date: date
+
+
+@dataclass
+class IssuedMeeting:
+    meeting: Meeting
+    result: CarryForwardResult
+    flags: list[str] = field(default_factory=list)
+
+
+def process_batch(
+    store: Store,
+    firm: Firm,
+    project: Project,
+    items: list[BatchItem],
+    *,
+    extractor: Extractor,
+    output_dir: str | Path,
+    meeting_time: str = "",
+    location: str = "",
+    on_progress=None,
+) -> list[IssuedMeeting]:
+    """Issue each transcript in meeting order. Stops at the first failure; earlier meetings stay issued."""
+    issued: list[IssuedMeeting] = []
+    for item in sorted(items, key=lambda i: (i.meeting_no, i.meeting_date)):
+        if on_progress:
+            on_progress(item)
+        draft = generate_draft(
+            store, firm, project,
+            transcript=item.transcript, extractor=extractor,
+            meeting_no=item.meeting_no, meeting_date=item.meeting_date,
+            source_name=item.name, meeting_time=meeting_time, location=location,
+        )
+        meeting, result = finalize(store, firm, project, draft.meeting, output_dir)
+        issued.append(IssuedMeeting(meeting=meeting, result=result, flags=list(draft.warnings)))
+    return issued
