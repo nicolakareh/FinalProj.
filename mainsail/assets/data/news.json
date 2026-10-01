@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-01T15:36:12.162Z",
+ "updated": "2026-10-01T15:37:05.070Z",
  "items": [
   {
    "title": "With its first office-to-housing project done, Chicago advances ‘next chapter’ for its downtown",
@@ -11,7 +11,7 @@
   {
    "title": "$10M infusion for kids at Brighton Children’s Hospital campus",
    "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxOZ2JweE1XVHZzYnlGMjdtRXkzVWFMY0xqSVlHcG8tc3hicEhrblJuampJSkFldG9jN281R0lMRm0xdlRiaHB4dWRvMjFmVmFyX2ZONFJzcXo3NHlFUEFFWnF3LVk5blpRXzJSRjc3TjNxUTl6RFdnY2liRUJvcDVaMVNQUldraGZDV2o4QmNDRkRoa3QyenZuRHVvandwMnVsYUE?oc=5",
-   "source": "Boston Herald",
+   "source": "bostonherald.com",
    "date": "2026-10-01T13:50:19.000Z",
    "tags": [
     "hospital",
@@ -140,7 +140,7 @@
   {
    "title": "Preserve to unite. Amherst College by Herzog & de Meuron",
    "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxNRHEwX1lESmoxYWh6OHlkcG1SMlRzdHZBYjdsUnVsZlVjMDVxYmQ1TjViOHFmZ2EwdWhYazQ0d2lqOC1tU3pyLUV2MDg1czl6OHZfTTl0MnRPT1BEWldEUWNvVGs0MHdvdWVRN2hiUWpoalg1REhpa2tZVUlwbnBNckVKVnBKN3M?oc=5",
-   "source": "metalocus.es",
+   "source": "Metalocus",
    "date": "2026-09-29T16:34:58.000Z",
    "tags": [
     "education"
@@ -186,20 +186,11 @@
   {
    "title": "DSO Park Dental expands its reach in Ariz.",
    "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxPOEJrTlI5cy1sUldzbHhEYUJPWHB4WFkwTTBNTnVaYkZac0xoX1pYaHpWdGtmT3RPU1V3aDEzdnQwWWNnWnNHNGVRaFR3bm5VOFdNTjQ4UTZjZ0pHTDFKTHBEcHlhV3hZUVFNRGJ5RndsUzBRQlh2Mkc4bElCUVdXZTNHVWhSYUs1OVBTUVJsNVlUMkRZV0RnZ3NaaTg0QkNwNy1ONE9WWXc?oc=5",
-   "source": "drbicuspid.com",
+   "source": "DrBicuspid.com",
    "date": "2026-09-29T06:52:25.000Z",
    "tags": [
-    "medical",
-    "work"
-   ],
-   "client": "42north"
-  },
-  {
-   "title": "Tutor Perini Lands Work",
-   "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE5CLUdxeVFTQmNJNG5oeW42U2Nva0Q4UXBITElQY3M1VnNNd3RLRFNPRE00VVFOT1hBRTJVVVYwdVN3c1cyRXdYdmd5QThEVlhVNXRLQ1VCeFFNR2ZhcmRGME5UZ0o1VVRER1pKRE84Wl9kbnRO?oc=5",
-   "source": "Los Angeles Business Journal",
-   "date": "2026-09-29T05:23:47.000Z",
-   "tags": []
+    "medical"
+   ]
   },
   {
    "title": "Columbus hospitals are spending billions on buildings. See what's new in 2026",
@@ -217,10 +208,8 @@
    "source": "Northeastern Global News",
    "date": "2026-09-28T15:00:55.000Z",
    "tags": [
-    "hospital",
-    "work"
-   ],
-   "client": "mgh"
+    "hospital"
+   ]
   },
   {
    "title": "CHIA: Profitability increases for Massachusetts hospitals",
@@ -234,13 +223,11 @@
   {
    "title": "DSO USOSM names new payer relations senior VP",
    "url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxOUlJ2QTF5R3lIMlV4THRMc0JfV0NBcUxDeG13R3dnNUZKbHluQlA4Uy0tQy03Q2ZRenoyMi1tVHVWazdicF9qaE1sdGZBWTZWVkZNRFhmQW40VFY3RDFEcjdMWm0xR2lxSVNaemYtZ0RhR2pzNnE1bjF6ZjhBSFV3WEo2YjFMcjdEb09XRDRhNFB0dURjbmNHa2pJdUxiNzd5S1Q0aUw3ME93ejVzNUE?oc=5",
-   "source": "drbicuspid.com",
+   "source": "DrBicuspid.com",
    "date": "2026-09-28T06:32:22.000Z",
    "tags": [
-    "medical",
-    "work"
-   ],
-   "client": "42north"
+    "medical"
+   ]
   },
   {
    "title": "Eli Lilly breaks ground on $6.5B Houston manufacturing plant",
@@ -265,10 +252,8 @@
    "date": "2026-09-24T14:21:45.000Z",
    "tags": [
     "hospital",
-    "medical",
-    "work"
-   ],
-   "client": "mgh"
+    "medical"
+   ]
   },
   {
    "title": "Massachusetts hospital systems improved their bottom lines in 2025, but some still reported major losses",
@@ -276,15 +261,13 @@
    "source": "The Boston Globe",
    "date": "2026-09-24T00:01:00.000Z",
    "tags": [
-    "hospital",
-    "work"
-   ],
-   "client": "mgh"
+    "hospital"
+   ]
   },
   {
    "title": "Tampa General Hospital and Mass General Brigham Open Radiation Oncology Center in Palm Beach Gardens",
    "url": "https://news.google.com/rss/articles/CBMi4wFBVV95cUxNTXZzU0c3X1ppd2JrbUF0Z0RkMVowRm5oNjgxVjZpRm1ZMmotR1ZHWGtPazcta2hYOE5qY21aU2pnbmdSYjdodHFpeEp4Zlc1eHJRbkRpMFhQNHNGRVdEa2pITWxzckdpbGYxMmVKejV1dTN3UC1OQ0E1Ni1oSl9JVkJpUWN1SkVNT3U1bkVGNE9LSXpyWVRGaFhMSFJHUnB6WFl2dE5MeFBKeXpEYVBBMDlVekY2cUpfM3ZxTVNyZThlbkswVFY4Vm9TWVJ1bFJyU3FnNlBMcFlRLUhXdVlLUFFhSQ?oc=5",
-   "source": "South Florida Hospital News",
+   "source": "southfloridahospitalnews.com",
    "date": "2026-09-23T20:33:57.000Z",
    "tags": [
     "hospital",
@@ -304,7 +287,7 @@
   {
    "title": "Public meeting on Carney redevelopment set for Oct. 19",
    "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxPZlVaR2RRNk5Zb20ydmdwMk5NRjNIUF96RFAzRTFEZkN5Y3ZQSE0xYlk1cVp1c2V5Zno2cm9iYlg0Z1RUSV9Nc2E5YkEwT2ZPYWhjb3RUTkNVa0JzdFdEWGcxZU53QmJfMjZ4MXZBdXl6QUc0MlU1Umt4cjQtdWxHcXQwRkRvLTljYjlGYTZ5cHIwQ00?oc=5",
-   "source": "Dorchester Reporter",
+   "source": "dotnews.com",
    "date": "2026-09-23T15:23:35.000Z",
    "tags": [
     "hospital"
@@ -313,7 +296,7 @@
   {
    "title": "Campus Construction",
    "url": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE5qemMwMnd6S2dKdEYtajNHdnNCNVhmWllQUC1yQ01obnc5LWRnc01YSTZVb1JQbjU0dFV4WWdWaDFQMUJub0l0QXNwVi1PS0VQR2FOYnZKdHNIMHpMdnc?oc=5",
-   "source": "Harper College",
+   "source": "harpercollege.edu",
    "date": "2026-09-23T07:00:00.000Z",
    "tags": [
     "education"
@@ -331,7 +314,7 @@
   {
    "title": "DPR Converts 275,000-SF Massachusetts Office Into Lab",
    "url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxNazc1eU0wbzBhcG9tWmtVVUlKeGtMTWk4MU9xLWZ6Zl9fR2JfM0lERVhrM0NDaWotM3NhX25RSENEeDBCYVlFUFFSUVYxRURSNWNHdjJjdUwtZG9TS0ZfWFpXR0VVRkZXUWo0ZlFDN3hRdWFBUHdPRTcyYTlaMU5DT1RsZnRqX29QWTFScm04anV5TFhmQ0tlVkM3RzBzTGVWXzlJSmhOa3FWV0tHeVVDSDVMbWhsN3V3aDBjcHBn?oc=5",
-   "source": "Construction Owners",
+   "source": "constructionowners.com",
    "date": "2026-09-23T01:03:49.000Z",
    "tags": [
     "pharma"
@@ -410,7 +393,7 @@
   {
    "title": "DPR Converts Massachusetts Office Building Into 275,000-Square-Foot Life Sciences Facility",
    "url": "https://news.google.com/rss/articles/CBMiygFBVV95cUxNSEI5Qm9TM3lhUktqcFFRempXNnBESWVvOTJ5UG5KME1DdmRBcGsweklzVkhnMEtSS3NvTXpaUS1JWVJQSVA3ZkN4QmlzamNGdFhWa013Qm1QYXBXOVhIUmZFLUkxczhDSmtnNWRNSGRzeW9tTUVHWVVkSzNhYmxOZmhVcHRLRkJORUliVUNKYzdtS3VrUV85SkRMbERPcU4zYTNXX0VHUWdaMGRHMUUzRndDOFpQU1lwT0hJeTJVMTdyUjN3N3Z1OGxB?oc=5",
-   "source": "Construction Owners",
+   "source": "constructionowners.com",
    "date": "2026-09-21T16:04:31.000Z",
    "tags": [
     "pharma"
@@ -449,10 +432,8 @@
    "source": "NorthEscambia.com",
    "date": "2026-09-21T04:43:47.000Z",
    "tags": [
-    "hospital",
-    "work"
-   ],
-   "client": "mgh"
+    "hospital"
+   ]
   },
   {
    "title": "Affordable senior housing with health care will replace former Lynn hospital",
@@ -461,18 +442,7 @@
    "date": "2026-09-18T07:00:00.000Z",
    "tags": [
     "hospital",
-    "medical",
-    "work"
-   ],
-   "client": "mgh"
-  },
-  {
-   "title": "More Boston Medical Center nurses vote to authorize potential three-day strike",
-   "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTE43YmwwLWphYWRTWldnRE9vaW9Ob1IyWks3QjJOZkVRTjRQSjZfMlpzTnVpMjF3UmlmbEowVGV4Q21UNnNHdGJENzFTbjdYMDUtdWZZOXYyM25NYlNqNUd6cURqazN5SE5aRnhMSGExbkloOGIyRFRaeE85cw?oc=5",
-   "source": "The Boston Globe",
-   "date": "2026-09-18T07:00:00.000Z",
-   "tags": [
-    "hospital"
+    "medical"
    ]
   },
   {
@@ -485,24 +455,13 @@
    ]
   },
   {
-   "title": "Transforming Campus: Latest Construction Milestones",
-   "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxQN2VVdjY3S0dyRjY4NGJVWmRidmRLT0ZGNnZEekoxaXd3MmpVUEdWZzNwMXVHdXhkMjRSb2dobk9EVFpMbnFYX3VkQlpBZzNoUU1lVE1VUmZlbl9ENlRFUTVjbEhQaWc4QWxjTUg0MDBEeWx0Sk5TR1UtTkJ5Y1Bfb2dTUFJzTGowVVNBc2VwamhTSTdT?oc=5",
-   "source": "Georgia Tech News Center",
-   "date": "2026-09-18T07:00:00.000Z",
-   "tags": [
-    "education"
-   ]
-  },
-  {
    "title": "Tampa General Hospital, Boston hospital open South Florida cancer center",
    "url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxQaWViMzA5ZmJFZDY4SncwYk1Qbk5QV2l1X09XN1pVcFZWR3NlMk11RVBMUkFieFlKcExPeEdOR2pBTXIzR1VKTWFuRnZqWVdCaWdpNkNmci1USC0zNDNBTE54amFIbU9QbnZPTzMwZ1d1ZFIycklKbHdyeGlJWGk0UEd1ZXltOWMwWEppN01ES2F4eEhjT0N0NWRVZlcxaU1HU21nTXoyWFVLODMxOEE?oc=5",
    "source": "The Business Journals",
    "date": "2026-09-17T07:00:00.000Z",
    "tags": [
-    "hospital",
-    "work"
-   ],
-   "client": "mgh"
+    "hospital"
+   ]
   },
   {
    "title": "Building big with DNA gets a software upgrade",
@@ -510,10 +469,8 @@
    "source": "Wyss Institute at Harvard",
    "date": "2026-09-16T07:00:00.000Z",
    "tags": [
-    "hospital",
-    "work"
-   ],
-   "client": "mgh"
+    "hospital"
+   ]
   },
   {
    "title": "Lonza to Build New Pharmaceutical Manufacturing Facility in Bend",
@@ -532,6 +489,36 @@
    "tags": [
     "medical"
    ]
+  },
+  {
+   "title": "Lonza Invests $235M To Expand Oregon Operations",
+   "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxNb0Z2LXZHV1VvUU02VkxzQUtQSkZLcnBRTDloTXg2TjRsMTQtc3dGVDFjaGkxRWRJdXJWS0psQkhYLWhNUXJFVGxxZWZjOXpwcW1YRE9iN1lxdC1LMWlPNHkxTml4aDBqbWhyMWxPc3hqUHpMSDdxSjJkVkNERlpBSWVxTUg?oc=5",
+   "source": "Business Facilities",
+   "date": "2026-09-15T07:00:00.000Z",
+   "tags": [
+    "pharma"
+   ]
+  },
+  {
+   "title": "Connolly Brothers completes renovation of The Lodge at Endicott College in Beverly, Massachusetts",
+   "url": "https://news.google.com/rss/articles/CBMi_wFBVV95cUxQQ192Q3NVSFo0VU96VHBtdWJWSkFHY1dVOW5Ccl9fTTJETkQ1dFYtczU3Mk1NZV85bllOQlJYdlg4QThoaTdWVXhhalBSV0JNSl9RUWtveUVPZGkwZEZNRXBhMmp3MVlZZk1GNklETjNmOTktWTZocllnY181cERtdWRhZFJSUHdBcHM0LWl2RzNVNVdOOG5tRWQ1azdCbFdVZzV2M2M4RFFEY1V4T3VwUnZBekdvc092YlR0Y0JGLUYyVmo0SVFyV1Rmb0pBQjR5M2dSSE41c2d1YllzQ3Bfd2tlMHJBdXNIMlRiOERnM1YwUXFyMlZYeTloSkNFRUnSAYQCQVVfeXFMTUNLN1VxekNOay1rME1SMHlMMlg0YjhFdmUtMXNDZWxNeXNad1R3YWp0R2hMUXd0YzBSNUhzNG5KOU1renBXQURPQXNzS2V6WjdmSGYxd1ZJRHhTMGlzV3NGcE1vMkg0UWdaY1pCdk53VExUMzdINFRCcEhtaEFmQU05cVhfSUVLQ0trNnR6eFEzbFFfUEZNbDJQVV9McmlFTmlQTkNCRFlLQmdNWU5iUmR2MUg0SEFaaGxUNGJMNVpGbUxoZ2N3LVFwWUhnR1huTHowRFhpUUJHUTZWTXBpRlNmVDhRNUsyZDJDQjVNRVV6TDBjWU1XU201cDRvV3FPblg2UHA?oc=5",
+   "source": "manilatimes.net",
+   "date": "2026-09-14T12:17:04.000Z",
+   "tags": [
+    "education"
+   ]
+  },
+  {
+   "title": "Aptar Pharma and Massachusetts General Hospital Collaborate on Platform to Establish Predictive, Data-Driven Model for Advancing Nose-to-Brain Drug Delivery",
+   "url": "https://news.google.com/rss/articles/CBMioAJBVV95cUxOaW5zNlVjZm1LSzJxVjZxQWltUW51aUJoQ096MUZLT3U2amg4Y2VDcG15VldoTmhKTnQ0bDVlMXZIakQtTTc1bUJTZnluZlVkQThndjFxZVZvMW5yT0ZZUG1DQlZaNnR6dUVPam1QZ05NcDg3Y1dIZlhrTENOSHQ4XzFVVWpNZHJFdXJFN0tsSV9rX25zZDVxR05BdXVTYWU0a1V4WFF0NTg1OTNWNGljYzhvcV9qVTJnWk9aSDAzbGNUczBzQVJzaEwxOGh4UTNkM3Y1dVJJYXJKMmF0NEF4XzFXVEhEMHpiMkVVd1VFWUJzdXgzVkRDTWRrcXBHZUM5aGhLWnNTemxNanlIa1BLZ3g1akM1UFNldVNjeGoxUE8?oc=5",
+   "source": "BioSpace",
+   "date": "2026-09-14T07:00:00.000Z",
+   "tags": [
+    "hospital",
+    "pharma",
+    "work"
+   ],
+   "client": "mgh"
   }
  ]
 }
