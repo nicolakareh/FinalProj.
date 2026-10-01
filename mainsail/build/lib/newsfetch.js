@@ -10,12 +10,13 @@ const KEEP = 60;
 const gnews = (q) => `https://news.google.com/rss/search?q=${encodeURIComponent(q + ' when:45d')}&hl=en-US&gl=US&ceid=US:en`;
 
 /* ---------- Organisations Mainsail is working with ----------
-   Each entry adds Google News searches whose results are tagged "work" (the "Our work" filter),
-   and a title pattern so mentions in any other feed are tagged too. `sector` is the sector image key.
+   Each entry adds Google News searches that surface candidate stories, and a title pattern: a story is
+   tagged "work" (the "Our work" filter) only when its headline names the organisation, whichever feed it
+   came from, so body-only mentions do not count. `sector` is the sector image key.
    To add one: give the full organisation name as it appears in the press, a pattern, and one or two searches. */
 const CLIENTS = [
   { key: 'mgh', name: 'Massachusetts General Hospital', sector: 'hospital',
-    match: /\b(massachusetts general hospital|mass general brigham|mass general\b|mgh\b)/i,
+    match: /\b(massachusetts general hospital|mass general brigham|mass general\b|mgh\b|mgb\b)/i,
     queries: ['"Massachusetts General Hospital" construction OR building OR expansion OR renovation OR facility', '"Mass General Brigham" construction OR building OR campus OR facility'] },
   { key: '42north', name: '42 North Dental', sector: 'medical',
     match: /\b42\s?north dental\b/i,
@@ -75,7 +76,7 @@ function parse(xml, feed) {
     if (Number.isNaN(when.getTime())) continue;
     const tags = new Set(feed.tags);
     RULES.forEach(([tag, re]) => { if (re.test(title)) tags.add(tag); });
-    let client = feed.client || null;
+    let client = null;
     CLIENTS.forEach(c => { if (c.match.test(title)) { client = client || c.key; tags.add(c.sector); } });
     if (client) tags.add('work');
     const item = { title, url: decode(url), source: source || 'Source', date: when.toISOString(), tags: [...tags] };

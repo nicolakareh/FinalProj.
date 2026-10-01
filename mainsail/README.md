@@ -59,9 +59,9 @@ The "In the news" section shows recent, attributed headlines with an "Our work" 
 filter per sector. The fetcher is `build/lib/newsfetch.js`:
 
 - `CLIENTS` lists the organisations Mainsail is working with (currently Massachusetts General
-  Hospital and 42 North Dental). Each adds Google News searches whose results are tagged
-  "work", plus a title pattern so mentions in other feeds are tagged too. Add a line to track
-  another organisation.
+  Hospital and 42 North Dental). Each adds Google News searches that surface candidate stories
+  and a title pattern; a story is tagged "work" only when its headline names the organisation.
+  Add a line to track another organisation.
 - `FEEDS` adds Construction Dive and Google News searches per sector, including Boston and
   New England searches. Social-media sources and crime, accident or legal-dispute stories are
   filtered out. Every headline links to the publisher's page.
