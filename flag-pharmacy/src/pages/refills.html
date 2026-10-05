@@ -1,0 +1,48 @@
+<!--META {"slug":"refills","title":"Refills & Transfers · Flag Pharmacy","desc":"Request a prescription refill from Flag Pharmacy by phone, in our mobile app, or online, or transfer your prescriptions to us. We can coordinate your whole family's refills for the same day.","bodyClass":"page-refills","group":"patients"} -->
+<section class="page-hero page-hero--soft">
+  <div class="container">
+    <p class="crumbs"><a href="patients.html">Patients</a><span>/</span>Refills &amp; transfers</p>
+    <h1>Refills &amp; transfers</h1>
+    <p class="lede">Request a refill in a minute, or move your prescriptions to Flag Pharmacy and let us handle the rest.</p>
+  </div>
+</section>
+<section class="section">
+  <div class="container split">
+    <div>
+      <h2>Request a refill</h2>
+      <p class="muted">Have your prescription number ready. It's printed on the label of your bottle. Refill requests are usually ready the next business day; call if you need it sooner.</p>
+      <form class="form" data-mailto="oleg@flagpharmacy.com" data-subject="Refill request">
+        <div class="row">
+          <label>Full name<input type="text" name="name" required autocomplete="name"></label>
+          <label>Phone<input type="tel" name="phone" required autocomplete="tel"></label>
+        </div>
+        <label>Date of birth<input type="date" name="date_of_birth" required></label>
+        <label>Prescription number(s)<textarea name="prescription_numbers" rows="3" placeholder="One per line" required></textarea></label>
+        <label>Store<select name="store"><option>Flag Pharmacy, Lynn</option><option>Margolis Pharmacy, Chelsea</option></select></label>
+        <label>Pickup or delivery<select name="pickup_or_delivery"><option>Pickup</option><option>Delivery</option></select></label>
+        <button class="btn btn--primary" type="submit">Send refill request</button>
+        <small>This opens your email app with the request filled in. Prefer the phone? Lynn (781) 599-5900 · Chelsea (617) 884-3524.</small>
+      </form>
+    </div>
+    <div style="display:grid;gap:1.25rem">
+      <div class="card card--soft"><div class="card__icon">{{ICON phoneapp}}</div><h3>Refill in the app</h3><p>Our free mobile app lets you order refills for your entire family and set medication reminders.</p><a class="more" href="mobile-apps.html">Get the app</a></div>
+      <div class="card card--soft"><div class="card__icon">{{ICON calendar}}</div><h3>Same day for the whole family</h3><p>With our Synchronize Medication Program, you can get all your medication on the same day every month, and we can coordinate whole families' refills for the same day.</p><a class="more" href="synchronize-medication-program.html">Learn about med sync</a></div>
+      <div class="card card--soft"><div class="card__icon">{{ICON truck}}</div><h3>Have it delivered</h3><p>Same or next day delivery to most locations north of Boston.</p><a class="more" href="home-delivery.html">Delivery areas</a></div>
+    </div>
+  </div>
+</section>
+<section class="section section--soft" id="transfer">
+  <div class="container split split--rev">
+    <div class="prose">
+      <h2>Transfer your prescriptions</h2>
+      <p>Switching to Flag Pharmacy is simple. Tell us the name and phone number of your current pharmacy and the medications you take, and we will contact them to transfer everything for you. You'll get the same medications with the personal service, delivery and multilingual support we're known for.</p>
+      <ol>
+        <li>Call us or stop by with your current pharmacy's name and phone number.</li>
+        <li>Share your insurance card and a list of your medications.</li>
+        <li>We contact your pharmacy and your prescribers, and let you know when your prescriptions are ready.</li>
+      </ol>
+      <p><a class="btn btn--primary" href="tel:+17815995900">Call (781) 599-5900 to transfer</a></p>
+    </div>
+    {{PHOTO hero-pharmacy.jpg|Pharmacist at the counter|Pharmacist speaking with a patient at the Flag Pharmacy counter}}
+  </div>
+</section>

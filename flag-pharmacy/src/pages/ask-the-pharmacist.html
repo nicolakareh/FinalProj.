@@ -1,0 +1,27 @@
+<!--META {"slug":"ask-the-pharmacist","title":"Ask the Pharmacist · Flag Pharmacy","desc":"Have a question about your medications? Ask a Flag Pharmacy pharmacist. Russian and Spanish speaking pharmacists available.","bodyClass":"page-ask","group":"patients"} -->
+<section class="page-hero page-hero--soft">
+  <div class="container">
+    <p class="crumbs"><a href="patients.html">Patients</a><span>/</span>Ask the pharmacist</p>
+    <h1>Ask the pharmacist</h1>
+    <p class="lede">Pharmacists are the medication experts on your health care team. Ask us about side effects, interactions, how to take a medication, or anything else on your mind. We have Russian and Spanish speaking pharmacists.</p>
+  </div>
+</section>
+<section class="section">
+  <div class="container split">
+    <form class="form" data-mailto="oleg@flagpharmacy.com" data-subject="Ask the pharmacist">
+      <div class="row">
+        <label>Name<input type="text" name="name" required autocomplete="name"></label>
+        <label>Email or phone<input type="text" name="contact" required></label>
+      </div>
+      <label>Preferred language<select name="language"><option>English</option><option>Русский (Russian)</option><option>Español (Spanish)</option><option>Other</option></select></label>
+      <label>Your question<textarea name="question" rows="6" required></textarea></label>
+      <button class="btn btn--primary" type="submit">Send question</button>
+      <small>This opens your email app with the message filled in. For urgent questions, call (781) 599-5900. In an emergency, call 911.</small>
+    </form>
+    <div style="display:grid;gap:1.25rem">
+      <div class="card card--soft"><div class="card__icon">{{ICON phone}}</div><h3>Prefer to talk?</h3><p>Lynn: <a href="tel:+17815995900">(781) 599-5900</a><br>Chelsea: <a href="tel:+16178843524">(617) 884-3524</a></p></div>
+      <div class="card card--soft"><div class="card__icon">{{ICON heart}}</div><h3>Medication therapy management</h3><p>For a full review of everything you take, ask about our medication therapy management service.</p><a class="more" href="medication-therapy-management.html">Learn more</a></div>
+      <div class="card card--soft"><div class="card__icon">{{ICON clock}}</div><h3>Hours</h3><p>Mon – Fri 9 am – 7 pm · Sat 9 am – 5 pm · Sun closed, at both stores.</p></div>
+    </div>
+  </div>
+</section>

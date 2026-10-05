@@ -60,3 +60,9 @@ Store facts on the site (addresses, phones, hours, partners, history) were compi
 pip install -r requirements.txt
 streamlit run KarehProgramFinal.py
 ```
+
+---
+
+## Flag Pharmacy website
+
+`flag-pharmacy/` holds a separate, minimal redesign of [flagpharmacy.com](https://www.flagpharmacy.com/) (Lynn and Chelsea, MA). Open `flag-pharmacy/index.html` or see `flag-pharmacy/README.md` for pages, photo slots, and how to rebuild from `flag-pharmacy/src/`.

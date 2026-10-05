@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Refills & Transfers · Flag Pharmacy</title>
+<meta name="description" content="Request a prescription refill from Flag Pharmacy by phone, in our mobile app, or online, or transfer your prescriptions to us. We can coordinate your whole family's refills for the same day.">
+<meta name="theme-color" content="#ffffff">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Flag Pharmacy">
+<meta property="og:title" content="Refills & Transfers · Flag Pharmacy">
+<meta property="og:description" content="Request a prescription refill from Flag Pharmacy by phone, in our mobile app, or online, or transfer your prescriptions to us. We can coordinate your whole family's refills for the same day.">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap">
+<link rel="stylesheet" href="assets/css/site.css">
+<script>document.documentElement.classList.add('js');</script>
+</head>
+<body class="page-refills">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="topbar">
+  <div class="container topbar__inner">
+    <span class="topbar__item"><strong>Lynn</strong> <a href="tel:+17815995900">(781) 599-5900</a></span>
+    <span class="topbar__item"><strong>Chelsea</strong> <a href="tel:+16178843524">(617) 884-3524</a></span>
+    <span class="topbar__item topbar__status" data-open-status data-store="lynn" hidden></span>
+  </div>
+</div>
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a class="brand" href="index.html" aria-label="Flag Pharmacy home">
+      <img class="brand__logo" src="assets/img/logo.svg" alt="" width="36" height="36">
+      <span class="brand__text">Flag <span>Pharmacy</span></span>
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+      <span class="nav-toggle__bars" aria-hidden="true"></span><span class="nav-toggle__label">Menu</span>
+    </button>
+    <nav class="site-nav" id="site-nav" aria-label="Primary">
+      <ul class="site-nav__list">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li class="has-menu" data-group="patients" data-active>
+          <button type="button" class="site-nav__group" aria-expanded="false">Patients <svg class="chev" aria-hidden="true" viewBox="0 0 16 16"><path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <ul class="submenu">
+            <li><a href="patients.html">Patient resources</a></li>
+            <li><a href="new-prescriptions.html">New prescriptions</a></li>
+            <li><a href="refills.html" aria-current="page">Refills &amp; transfers</a></li>
+            <li><a href="mobile-apps.html">Mobile apps</a></li>
+            <li><a href="ask-the-pharmacist.html">Ask the pharmacist</a></li>
+          </ul>
+        </li>
+        <li class="has-menu" data-group="services">
+          <button type="button" class="site-nav__group" aria-expanded="false">Services <svg class="chev" aria-hidden="true" viewBox="0 0 16 16"><path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <ul class="submenu">
+            <li><a href="home-delivery.html">Home delivery</a></li>
+            <li><a href="adherence-program.html">Adherence program</a></li>
+            <li><a href="synchronize-medication-program.html">Synchronize medication program</a></li>
+            <li><a href="unit-dose.html">Unit dose packaging</a></li>
+            <li><a href="medication-therapy-management.html">Medication therapy management</a></li>
+            <li><a href="vaccines.html">Vaccine appointments</a></li>
+          </ul>
+        </li>
+        <li><a href="health-care-providers.html">Providers</a></li>
+        <li><a href="store.html">Store</a></li>
+        <li><a href="locations.html">Locations</a></li>
+      </ul>
+      <a class="btn btn--primary btn--sm site-nav__cta" href="refills.html">Refill a prescription</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+<section class="page-hero page-hero--soft">
+  <div class="container">
+    <p class="crumbs"><a href="patients.html">Patients</a><span>/</span>Refills &amp; transfers</p>
+    <h1>Refills &amp; transfers</h1>
+    <p class="lede">Request a refill in a minute, or move your prescriptions to Flag Pharmacy and let us handle the rest.</p>
+  </div>
+</section>
+<section class="section">
+  <div class="container split">
+    <div>
+      <h2>Request a refill</h2>
+      <p class="muted">Have your prescription number ready. It's printed on the label of your bottle. Refill requests are usually ready the next business day; call if you need it sooner.</p>
+      <form class="form" data-mailto="oleg@flagpharmacy.com" data-subject="Refill request">
+        <div class="row">
+          <label>Full name<input type="text" name="name" required autocomplete="name"></label>
+          <label>Phone<input type="tel" name="phone" required autocomplete="tel"></label>
+        </div>
+        <label>Date of birth<input type="date" name="date_of_birth" required></label>
+        <label>Prescription number(s)<textarea name="prescription_numbers" rows="3" placeholder="One per line" required></textarea></label>
+        <label>Store<select name="store"><option>Flag Pharmacy, Lynn</option><option>Margolis Pharmacy, Chelsea</option></select></label>
+        <label>Pickup or delivery<select name="pickup_or_delivery"><option>Pickup</option><option>Delivery</option></select></label>
+        <button class="btn btn--primary" type="submit">Send refill request</button>
+        <small>This opens your email app with the request filled in. Prefer the phone? Lynn (781) 599-5900 · Chelsea (617) 884-3524.</small>
+      </form>
+    </div>
+    <div style="display:grid;gap:1.25rem">
+      <div class="card card--soft"><div class="card__icon"><svg class="icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg></div><h3>Refill in the app</h3><p>Our free mobile app lets you order refills for your entire family and set medication reminders.</p><a class="more" href="mobile-apps.html">Get the app</a></div>
+      <div class="card card--soft"><div class="card__icon"><svg class="icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></div><h3>Same day for the whole family</h3><p>With our Synchronize Medication Program, you can get all your medication on the same day every month, and we can coordinate whole families' refills for the same day.</p><a class="more" href="synchronize-medication-program.html">Learn about med sync</a></div>
+      <div class="card card--soft"><div class="card__icon"><svg class="icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"/><circle cx="7" cy="18" r="1.8"/><circle cx="17" cy="18" r="1.8"/></svg></div><h3>Have it delivered</h3><p>Same or next day delivery to most locations north of Boston.</p><a class="more" href="home-delivery.html">Delivery areas</a></div>
+    </div>
+  </div>
+</section>
+<section class="section section--soft" id="transfer">
+  <div class="container split split--rev">
+    <div class="prose">
+      <h2>Transfer your prescriptions</h2>
+      <p>Switching to Flag Pharmacy is simple. Tell us the name and phone number of your current pharmacy and the medications you take, and we will contact them to transfer everything for you. You'll get the same medications with the personal service, delivery and multilingual support we're known for.</p>
+      <ol>
+        <li>Call us or stop by with your current pharmacy's name and phone number.</li>
+        <li>Share your insurance card and a list of your medications.</li>
+        <li>We contact your pharmacy and your prescribers, and let you know when your prescriptions are ready.</li>
+      </ol>
+      <p><a class="btn btn--primary" href="tel:+17815995900">Call (781) 599-5900 to transfer</a></p>
+    </div>
+    <figure class="photo" data-caption="Photo: Pharmacist at the counter"><img src="assets/img/hero-pharmacy.jpg" alt="Pharmacist speaking with a patient at the Flag Pharmacy counter" loading="lazy" onerror="this.closest('.photo').classList.add('photo--missing')"><svg class="photo__mark" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="1.5"/><path d="M21 16l-5-5-9 8"/></svg></figure>
+  </div>
+</section>
+</main>
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="index.html" aria-label="Flag Pharmacy home">
+          <img class="brand__logo" src="assets/img/logo.svg" alt="" width="36" height="36">
+          <span class="brand__text">Flag <span>Pharmacy</span></span>
+        </a>
+        <p>Home health care, teas, herbals and tinctures. A full-service pharmacy specializing in personalized service, home health care and medication management since 2006.</p>
+      </div>
+      <div>
+        <h2 class="footer-h">Flag Pharmacy</h2>
+        <address>7 Willow Street<br>Lynn, MA 01901</address>
+        <p><a href="tel:+17815995900">(781) 599-5900</a><br><span class="muted">Fax (781) 599-5918</span></p>
+        <p class="muted">Mon – Fri 9 am – 7 pm<br>Sat 9 am – 5 pm · Sun closed</p>
+      </div>
+      <div>
+        <h2 class="footer-h">Margolis Pharmacy</h2>
+        <address>447 Broadway<br>Chelsea, MA 02150</address>
+        <p><a href="tel:+16178843524">(617) 884-3524</a></p>
+        <p class="muted">Mon – Fri 9 am – 7 pm<br>Sat 9 am – 5 pm · Sun closed</p>
+      </div>
+      <div>
+        <h2 class="footer-h">Quick links</h2>
+        <ul class="footer-links">
+          <li><a href="refills.html">Refills &amp; transfers</a></li>
+          <li><a href="home-delivery.html">Home delivery</a></li>
+          <li><a href="vaccines.html">Vaccine appointments</a></li>
+          <li><a href="store.html">Store</a></li>
+          <li><a href="health-care-providers.html">Health care providers</a></li>
+          <li><a href="ask-the-pharmacist.html">Ask the pharmacist</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; <span data-year>2026</span> Flag Pharmacy · Margolis Pharmacy. All rights reserved.</p>
+      <p class="muted">Serving Lynn, Chelsea and the North Shore. Most major insurance plans accepted.</p>
+    </div>
+  </div>
+</footer>
+<script src="assets/js/site.js" defer></script>
+</body>
+</html>
